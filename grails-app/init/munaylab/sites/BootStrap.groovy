@@ -1,18 +1,11 @@
 package munaylab.sites
 
 import org.munaylab.factory.SiteBuilder as Builder
-import org.munaylab.contacto.Contacto
-import org.munaylab.contacto.TipoContacto
-import org.munaylab.contenido.Articulo
-import org.munaylab.contenido.TipoArticulo
 import org.munaylab.user.User
 import org.munaylab.categoria.TipoUsuario
 import org.munaylab.osc.Organizacion
 import org.munaylab.osc.EstadoOrganizacion
 import org.munaylab.osc.TipoOrganizacion
-import org.munaylab.osc.UserOrganizacion
-import org.munaylab.balance.Asiento
-import org.munaylab.balance.Categoria
 import org.munaylab.balance.TipoAsiento
 import org.munaylab.planificacion.Actividad
 import org.munaylab.planificacion.Proyecto
@@ -25,7 +18,6 @@ class BootStrap {
     def init = { servletContext ->
         log.info "initializing..."
 
-        crearRoles()
         environments {
             development {
                 crearOrganizacionParaPruebas()
@@ -33,22 +25,11 @@ class BootStrap {
         }
     }
 
-    def crearRoles() {
-        Role oscUser = Role.findByAuthority('ROLE_OSC_USER')
-                ?: new Role(authority: 'ROLE_OSC_USER').save()
-        Role oscContador = Role.findByAuthority('ROLE_OSC_CONTADOR')
-                ?: new Role(authority: 'ROLE_OSC_CONTADOR').save()
-        Role oscEscritor = Role.findByAuthority('ROLE_OSC_ESCRITOR')
-                ?: new Role(authority: 'ROLE_OSC_ESCRITOR').save()
+    void crearOrganizacionParaPruebas() {
         Role oscAdmin = Role.findByAuthority('ROLE_OSC_ADMIN')
                 ?: new Role(authority: 'ROLE_OSC_ADMIN').save()
-        Role user = Role.findByAuthority('ROLE_USER')
-                ?: new Role(authority: 'ROLE_USER').save()
-        [oscContador, oscEscritor, oscAdmin, user]
-    }
-
-    void crearOrganizacionParaPruebas() {
-        def admin = new TipoUsuario(nombre: 'ADMINISTRADOR').save(failOnError: true)
+        def admin = TipoUsuario.findByNombre('ADMINISTRADOR')
+                ?: new TipoUsuario(nombre: 'ADMINISTRADOR').save()
         def user = Builder.user
                 .conUsername('mcaligares@gmail.com')
                 .conNombre('Augusto')
@@ -70,8 +51,7 @@ class BootStrap {
         org.addToAdmins(userOrg)
         org.save(failOnError: true)
 
-        Role adminRole = Role.findByAuthority('ROLE_OSC_ADMIN')
-        UserRole userRole = new UserRole(user: user, role: adminRole).save(failOnError: true)
+        new UserRole(user: user, role: oscAdmin).save(failOnError: true)
 
         crearAsientos(org)
         crearPlanificacion(org)
@@ -123,21 +103,32 @@ class BootStrap {
         def articuloBuilder = Builder.articulo.conAutor(user).conOrganizacion(org)
                 .conImagen('http://placehold.it/900x800').publicado()
 
-        articuloBuilder.conTitulo('Mision').conPalabrasClaves('mision').conDescripcion('descripcion mision')
+        def mision = articuloBuilder.conTitulo('Mision').conPalabrasClaves('mision').conDescripcion('descripcion mision')
                 .conContenido('<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>')
                 .crear.save()
-        articuloBuilder.conTitulo('Nosotros').conPalabrasClaves('nosotros').conDescripcion('descripcion nosotros')
+        def nosotros = articuloBuilder.conTitulo('Nosotros').conPalabrasClaves('nosotros').conDescripcion('descripcion nosotros')
                 .conContenido('<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>')
                 .crear.save()
-        articuloBuilder.conTitulo('Programas').conPalabrasClaves('programas').conDescripcion('descripcion programas')
+        def programas = articuloBuilder.conTitulo('Programas').conPalabrasClaves('programas').conDescripcion('descripcion programas')
                 .conContenido('<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>')
                 .crear.save()
-        articuloBuilder.conTitulo('Contacto').conPalabrasClaves('contacto').conDescripcion('descripcion contacto')
+        def contacto = articuloBuilder.conTitulo('Contacto').conPalabrasClaves('contacto').conDescripcion('descripcion contacto')
                 .conContenido('<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>')
                 .crear.save()
-        articuloBuilder.conTitulo('Contribuir').conPalabrasClaves('contribuir').conDescripcion('descripcion contribuir')
+        def contribuir = articuloBuilder.conTitulo('Contribuir').conPalabrasClaves('contribuir').conDescripcion('descripcion contribuir')
                 .conContenido('<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>')
                 .crear.save()
+
+        Builder.articulo.cabecera.conOrganizacion(org).conContenido(mision).conTitulo('Mision')
+                .conNombre('Mision').conLink('mision').conPrioridad(0).crear.save(failOnError: true)
+        Builder.articulo.cabecera.conOrganizacion(org).conContenido(nosotros).conTitulo('Nosotros')
+                .conNombre('Nosotros').conLink('nosotros').conPrioridad(1).crear.save(failOnError: true)
+        Builder.articulo.cabecera.conOrganizacion(org).conContenido(programas).conTitulo('Programas')
+                .conNombre('Programas').conLink('programas').conPrioridad(2).crear.save(failOnError: true)
+        Builder.articulo.cabecera.conOrganizacion(org).conContenido(contacto).conTitulo('Contacto')
+                .conNombre('Contacto').conLink('contacto').conPrioridad(3).crear.save(failOnError: true)
+        Builder.articulo.cabecera.conOrganizacion(org).conContenido(contacto).conTitulo('Contribuir')
+                .conNombre('Contribuir').conLink('contribuir').conPrioridad(4).crear.save(failOnError: true)
     }
 
     def destroy = {

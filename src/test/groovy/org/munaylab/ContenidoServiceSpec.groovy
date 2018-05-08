@@ -2,6 +2,7 @@ package org.munaylab
 
 import org.munaylab.contenido.Articulo
 import org.munaylab.contenido.Cabecera
+import org.munaylab.contenido.Principal
 import org.munaylab.factory.SiteBuilder as Builder
 import org.munaylab.osc.Organizacion
 import org.munaylab.user.User
@@ -14,28 +15,28 @@ class ContenidoServiceSpec extends Specification
         implements ServiceUnitTest<ContenidoService>, DataTest, UnitTestBase {
 
     void setupSpec() {
-        mockDomains Organizacion, User, Articulo, Cabecera
+        mockDomains Organizacion, User, Articulo, Cabecera, Principal
     }
 
     void 'articulo valido para editar'() {
         expect:
         service.esUnArticuloValidoParaEditar(
             Builder.articulo.command.conDatos(DATOS_ARTICULO_VALIDO).crear,
-            Builder.organizacion.conDatos(DATOS_ORG_VERIFICADA).crear().save(flush: true)
+            Builder.organizacion.conDatos(DATOS_ORG_VERIFICADA).crear.save(flush: true)
         )
     }
     void 'articulo invalido para editar'() {
         expect:
         !service.esUnArticuloValidoParaEditar(
             Builder.articulo.command.conDatos(DATOS_ARTICULO_INVALIDO).crear,
-            Builder.organizacion.conDatos(DATOS_ORG_VERIFICADA).crear().save(flush: true)
+            Builder.organizacion.conDatos(DATOS_ORG_VERIFICADA).crear.save(flush: true)
         )
     }
     void 'organizacion de articulo invalido para editar'() {
         expect:
         !service.esUnArticuloValidoParaEditar(
             Builder.articulo.command.conDatos(DATOS_ARTICULO_VALIDO).crear,
-            Builder.organizacion.crear()
+            Builder.organizacion.crear
         )
     }
     void 'modificar articulo correctamente'() {
@@ -66,7 +67,7 @@ class ContenidoServiceSpec extends Specification
     void 'agregar articulo correctamente'() {
         given:
         def user = Builder.user.conDatos(DATOS_USER).crear.save(flush: true)
-        def org = Builder.organizacion.conDatos(DATOS_ORG_VERIFICADA).crear().save(flush: true)
+        def org = Builder.organizacion.conDatos(DATOS_ORG_VERIFICADA).crear.save(flush: true)
         def command = Builder.articulo.command
                 .conDatos(DATOS_ARTICULO_VALIDO)
                 .crear
@@ -88,7 +89,7 @@ class ContenidoServiceSpec extends Specification
     void 'agregar articulo correctamente'() {
         given:
         def user = Builder.user.conDatos(DATOS_USER).crear.save(flush: true)
-        def org = Builder.organizacion.conDatos(DATOS_ORG_VERIFICADA).crear().save(flush: true)
+        def org = Builder.organizacion.conDatos(DATOS_ORG_VERIFICADA).crear.save(flush: true)
         def command = Builder.articulo.command
                 .conDatos(DATOS_ARTICULO_VALIDO)
                 .crear
@@ -100,7 +101,7 @@ class ContenidoServiceSpec extends Specification
     void 'agregar articulo con errores'() {
         given:
         def user = Builder.user.conDatos(DATOS_USER).crear.save(flush: true)
-        def org = Builder.organizacion.conDatos(DATOS_ORG_VERIFICADA).crear().save(flush: true)
+        def org = Builder.organizacion.conDatos(DATOS_ORG_VERIFICADA).crear.save(flush: true)
         def command = Builder.articulo.command
                 .conDatos(DATOS_ARTICULO_INVALIDO)
                 .crear
@@ -111,7 +112,7 @@ class ContenidoServiceSpec extends Specification
     }
     void 'agregar articulo con error al guardar'() {
         given:
-        def org = Builder.organizacion.conDatos(DATOS_ORG_VERIFICADA).crear().save(flush: true)
+        def org = Builder.organizacion.conDatos(DATOS_ORG_VERIFICADA).crear.save(flush: true)
         def command = Builder.articulo.command
                 .conDatos(DATOS_ARTICULO_VALIDO)
                 .crear
@@ -149,21 +150,21 @@ class ContenidoServiceSpec extends Specification
         expect:
         service.esUnaCabeceraValidaParaEditar(
             Builder.articulo.cabeceraCommand.conDatos(DATOS_CABECERA_VALIDO).crear,
-            Builder.organizacion.conDatos(DATOS_ORG_VERIFICADA).crear().save(flush: true)
+            Builder.organizacion.conDatos(DATOS_ORG_VERIFICADA).crear.save(flush: true)
         )
     }
     void 'cabecera invalido para editar'() {
         expect:
         !service.esUnaCabeceraValidaParaEditar(
             Builder.articulo.cabeceraCommand.conDatos(DATOS_CABECERA_INVALIDO).crear,
-            Builder.organizacion.conDatos(DATOS_ORG_VERIFICADA).crear().save(flush: true)
+            Builder.organizacion.conDatos(DATOS_ORG_VERIFICADA).crear.save(flush: true)
         )
     }
     void 'cabecera con organizacion invalida para editar'() {
         expect:
         !service.esUnaCabeceraValidaParaEditar(
             Builder.articulo.cabeceraCommand.conDatos(DATOS_CABECERA_VALIDO).crear,
-            Builder.organizacion.crear()
+            Builder.organizacion.crear
         )
     }
     void 'modificar cabecera correctamente'() {
@@ -189,7 +190,7 @@ class ContenidoServiceSpec extends Specification
     }
     private crearArticulo(datos) {
         def user = Builder.user.conDatos(DATOS_USER).crear.save(flush: true)
-        def org = Builder.organizacion.conDatos(DATOS_ORG_VERIFICADA).crear().save(flush: true)
+        def org = Builder.organizacion.conDatos(DATOS_ORG_VERIFICADA).crear.save(flush: true)
         Builder.articulo.conDatos(datos)
                 .conAutor(user)
                 .conOrganizacion(org)
@@ -225,4 +226,15 @@ class ContenidoServiceSpec extends Specification
         assert cabecera.contenido.id == command.contenidoId
     }
 
+    void 'agregar contenido principal'() {
+        given:
+        def articulo = crearArticulo(DATOS_ARTICULO)
+        def command = Builder.articulo.principalCommand
+                .conDatos(DATOS_PRINCIPAL_VALIDOS)
+                .crear
+        when:
+        def principal = service.actualizarPrincipal(command, articulo.organizacion)
+        then:
+        principal.id != null && Principal.count() == 1
+    }
 }

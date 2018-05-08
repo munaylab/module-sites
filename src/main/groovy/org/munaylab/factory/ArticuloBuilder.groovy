@@ -14,6 +14,9 @@ class ArticuloBuilder {
     CabeceraCommandBuilder getCabeceraCommand() {
         new CabeceraCommandBuilder()
     }
+    PrincipalCommandBuilder getPrincipalCommand() {
+        new PrincipalCommandBuilder()
+    }
 
     ArticuloBuilder conAutor(value) {
         articulo.autor = value
@@ -87,6 +90,22 @@ class CabeceraBuilder {
         cabecera.organizacion = value
         this
     }
+    CabeceraBuilder conTitulo(value) {
+        cabecera.titulo = value
+        this
+    }
+    CabeceraBuilder conNombre(value) {
+        cabecera.nombre = value
+        this
+    }
+    CabeceraBuilder conLink(value) {
+        cabecera.link = value
+        this
+    }
+    CabeceraBuilder conPrioridad(value) {
+        cabecera.prioridad = value
+        this
+    }
     Cabecera getCrear() {
         cabecera
     }
@@ -106,4 +125,18 @@ class CabeceraCommandBuilder {
     CabeceraCommand getCrear() {
         command
     }
+}
+
+class PrincipalCommandBuilder {
+    PrincipalCommand command = new PrincipalCommand()
+
+    PrincipalCommandBuilder conId(value) { command.id = value; this }
+    PrincipalCommandBuilder conOrgId(value) { command.orgId = value; this }
+    PrincipalCommandBuilder conContenidoId(value) { command.contenidoId = value; this }
+    PrincipalCommandBuilder conTitulo(value) { command.titulo = value; this }
+    PrincipalCommandBuilder conAccionPrincipal(value) { command.accionPrincipal = value; this }
+    PrincipalCommandBuilder conAccionSecundaria(value) { command.accionSecundaria = value; this }
+    PrincipalCommandBuilder conAccionOpcional(value) { command.accionOpcional = value; this }
+    PrincipalCommandBuilder conDatos(props) { command = new PrincipalCommand(props); this }
+    PrincipalCommand getCrear() { command }
 }

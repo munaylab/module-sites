@@ -6,11 +6,13 @@ import org.munaylab.osc.Organizacion
 class SitesController {
 
     def organizacionService
+    def contenidoService
 
     def index() {
         Organizacion org = organizacionService.buscarPorNombre(params.nombreURL)
         if (org) {
-            render view: 'index', model: [org: org, cabeceras: Cabecera.findAllByOrganizacion(org)]
+            List<Cabecera> cabeceras = contenidoService.getCabecerasDeOrganizacion(org)
+            render view: 'index', model: [org: org, cabeceras: cabeceras]
         } else {
             render status: 404
         }

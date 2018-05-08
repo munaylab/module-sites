@@ -35,4 +35,9 @@ interface UnitTestBase {
 
     static final DATOS_CABECERA_MODIFICADA = [orgId: 1, contenidoId: 1, titulo: 'titulo modificado',
         nombre: 'nombre modificado', link: 'link_modificado', prioridad: 1]
+
+    static final DATOS_PRINCIPAL_VALIDOS = [orgId: 1, contenidoId: 1, titulo: 'Pagina Principal']
+
+    static final DATOS_PRINCIPAL_INVALIDOS = [orgId: 1, contenidoId: 1]
+
 }
