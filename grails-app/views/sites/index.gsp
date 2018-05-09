@@ -3,37 +3,80 @@
   <head>
     <meta name="layout" content="main"/>
     <title><g:message code="label.plataforma.full"/></title>
+    <g:if test="${principal.imagen}">
+      <style media="screen">
+        #page-top {
+          background-image: url('${principal.imagen}');
+        }
+      </style>
+    </g:if>
   </head>
 
   <body>
-    <section class="container">
+    <section class="container ${principal.imagen ? 'imagen' : ''}" id="page-top">
+      <div class="container-img"></div>
       <div class="row">
-        <h1 class="col-md-12">Fundación MunayLab</h1>
+        <h1 class="col-md-12">${principal.titulo ?: principal.contenido.titulo}</h1>
         <hr class="divisor">
         <div class="columna-1 col-md-6">
-          <div class="contenido">
-            <h2>Titulo de Contenido</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          </div>
-          <div class="contenido">
-            <h2>Titulo de Contenido</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <g:if test="${principal.titulo}">
+            <h2>${principal.contenido.titulo}</h2>
+          </g:if>
+          <div class="html">
+            ${raw(principal.contenido.contenido)}
           </div>
         </div>
         <div class="columna-2 col-md-6">
-          <img class="img-responsive" src="http://placehold.it/900x800" />
+          <img class="img-responsive" src="${principal.contenido.imagen}" />
 
           <div class="botones">
-            <button type="button" name="button" class="btn btn-default">Default</button>
-            <button type="button" name="button" class="btn btn-default">Default</button>
-            <button type="button" name="button" class="btn btn-default">Default</button>
-            <button type="button" name="button" class="btn btn-default">Default</button>
-            <button type="button" name="button" class="btn btn-default">Default</button>
+            <g:if test="${principal.accionOpcional}">
+              <a href="${principal.accionOpcional.link}" class="btn btn-default btn-primary">
+                ${principal.accionOpcional.titulo}
+              </a>
+            </g:if>
+            <g:if test="${principal.accionPrincipal}">
+              <a href="${principal.accionPrincipal.link}" class="btn btn-default btn-primary">
+                ${principal.accionPrincipal.titulo}
+              </a>
+            </g:if>
+            <g:if test="${principal.accionSecundaria}">
+              <a href="${principal.accionSecundaria.link}" class="btn btn-default">
+                ${principal.accionSecundaria.titulo}
+              </a>
+            </g:if>
           </div>
 
         </div>
+
       </div>
     </section>
+
+    <g:set var="style" value="${true}" />
+    <g:each var="cabecera" in="${cabeceras}">
+      <g:if test="${!cabecera.link}">
+        <section class="container ${style ? 'inverted' : ''}" id="${cabecera.titulo}">
+
+          <div class="row">
+            <div class="columna-1 col-md-6">
+              <h2>${cabecera.contenido.titulo}</h2>
+              <div class="html">
+                ${raw(cabecera.contenido.contenido)}
+              </div>
+            </div>
+            <div class="columna-2 col-md-6">
+              <img class="img-responsive" src="${cabecera.contenido.imagen}" />
+            </div>
+          </div>
+
+        </section>
+        <g:set var="style" value="${!style}" />
+      </g:if>
+    </g:each>
+
+    <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button">
+      <span class="glyphicon glyphicon-chevron-up"></span>
+    </a>
   </body>
 
 </html>
