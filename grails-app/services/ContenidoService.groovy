@@ -124,17 +124,18 @@ class ContenidoService {
         cabecera
     }
 
+    @Transactional(readOnly = true)
+    Principal getPrincipal(Organizacion org) {
+        Principal.findByOrganizacion(org)
+    }
+
     Principal actualizarPrincipal(PrincipalCommand command, Organizacion org) {
-        println "esUnContenidoPrincipalValidoParaEditar ${esUnContenidoPrincipalValidoParaEditar(command, org)}"
         if (!esUnContenidoPrincipalValidoParaEditar(command, org)) return null
 
         Principal principal = command.id ? modificarPrincipal(command) : crearPrincipal(command, org)
-        println "principal.errors $principal.errors"
-        println "principal.hasErrors() ${principal.hasErrors()}"
-        if (!principal.hasErrors()) principal.save(failOnError: true)
+        if (!principal.hasErrors()) principal.save()
 
-        println "principal $principal"
-        return principal
+        principal
     }
 
     @Transactional(readOnly = true)
