@@ -18,12 +18,12 @@ class BootStrap {
 
         environments {
             development {
-                crearOrganizacionParaPruebas()
+                crearOrganizacion()
             }
         }
     }
 
-    void crearOrganizacionParaPruebas() {
+    void crearOrganizacion() {
         Role oscAdmin = Role.findByAuthority('ROLE_OSC_ADMIN')
                 ?: new Role(authority: 'ROLE_OSC_ADMIN').save()
         def admin = TipoUsuario.findByNombre('ADMINISTRADOR')
@@ -35,9 +35,6 @@ class BootStrap {
             password    = 'Pass1234!'
             it
         }
-        log.error "user $user"
-        def userOrg = new UserOrganizacion(user: user, tipo: admin)
-        log.error "userOrg $userOrg  $userOrg.user"
         def org = new Organizacion().with {
             nombre      = 'MunayLab'
             nombreURL   = 'munaylab'
@@ -46,11 +43,9 @@ class BootStrap {
             objeto      = 'Brindar herramientas innovadoras a las organizaciones de la sociedad civil.'
             it
         }
-        log.error "org $org"
-        org.addToAdmins(userOrg)
-        org.save(failOnError: true)
+        org.addToAdmins(new UserOrganizacion(user: user, tipo: admin)).save()
 
-        new UserRole(user: user, role: oscAdmin).save(failOnError: true)
+        new UserRole(user: user, role: oscAdmin).save()
 
         agregarArticulos(org, user)
     }
