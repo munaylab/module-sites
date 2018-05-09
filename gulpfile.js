@@ -16,7 +16,8 @@ const lessFiles = [lessFolder + 'sites.less'];
 const resources = {
   javascripts: [
     'node_modules/jquery/dist/*.min.js',
-    'node_modules/bootstrap/dist/js/*.min.js'
+    'node_modules/bootstrap/dist/js/*.min.js',
+    'node_modules/scrollreveal/dist/*.min.js'
   ],
   stylesheets: [
     'node_modules/font-awesome/css/*.min.css',
