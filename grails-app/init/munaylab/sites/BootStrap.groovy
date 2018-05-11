@@ -56,7 +56,7 @@ class BootStrap {
         def articulo = new Articulo().with {
             autor           = user
             organizacion    = org
-            imagen          = 'http://placehold.it/900x800'
+            imagen          = 'http://placehold.it/600x400'
             publicado       = true
             titulo          = 'Principal'
             palabrasClaves  = 'principal'
@@ -66,7 +66,7 @@ class BootStrap {
         }.save()
         def principal = new Principal().with {
             titulo          = 'Titulo Principal'
-            imagen          = 'http://placehold.it/900x800'
+            imagen          = 'http://www.csrindia.org/images/Banner-Social-Surfing.jpg'
             contenido       = articulo
             organizacion    = org
             it
@@ -139,7 +139,7 @@ class BootStrap {
             organizacion    = org
             contenido       = mision
             titulo          = mision.titulo
-            nombre          = mision.titulo
+            nombre          = mision.titulo.toLowerCase()
             prioridad       = 0
             it
         }.save()
@@ -147,7 +147,7 @@ class BootStrap {
             organizacion    = org
             contenido       = nosotros
             titulo          = nosotros.titulo
-            nombre          = nosotros.titulo
+            nombre          = nosotros.titulo.toLowerCase()
             prioridad       = 1
             it
         }.save()
@@ -155,7 +155,7 @@ class BootStrap {
             organizacion    = org
             contenido       = programas
             titulo          = programas.titulo
-            nombre          = programas.titulo
+            nombre          = programas.titulo.toLowerCase()
             prioridad       = 2
             it
         }.save()
@@ -163,7 +163,7 @@ class BootStrap {
             organizacion    = org
             contenido       = contacto
             titulo          = contacto.titulo
-            nombre          = contacto.titulo
+            nombre          = contacto.titulo.toLowerCase()
             link            = 'mailto:contacto@munaylab.org'
             prioridad       = 3
             it
@@ -172,7 +172,7 @@ class BootStrap {
             organizacion    = org
             contenido       = contribuir
             titulo          = contribuir.titulo
-            nombre          = contribuir.titulo
+            nombre          = contribuir.titulo.toLowerCase()
             prioridad       = 4
             it
         }.save()
