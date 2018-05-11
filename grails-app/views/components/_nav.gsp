@@ -6,12 +6,12 @@
           data-toggle="collapse" data-target="#navbar-collapse">
         <span class="sr-only">Navegación</span> <i class="fa fa-1x fa-bars"></i>
       </button>
-      <a class="navbar-brand page-scroll" href="#page-top">
+      <a class="navbar-brand page-scroll" href="#section-top">
         <g:if test="${org}">
           <b>${org.nombre}</b>
         </g:if>
         <g:else>
-          MunayLab
+          <g:message code="label.plataforma.nombre"/>
         </g:else>
       </a>
     </div>
