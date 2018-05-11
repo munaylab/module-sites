@@ -16,7 +16,7 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class ContenidoService {
 
-    Articulo actualizarArticulo(Organizacion org, ArticuloCommand command) {
+    Articulo actualizarArticulo(ArticuloCommand command, Organizacion org) {
         if (!esUnArticuloValidoParaEditar(command, org)) return null
 
         Articulo articulo = command.id ? modificarArticulo(command) : crearArticulo(command, org)

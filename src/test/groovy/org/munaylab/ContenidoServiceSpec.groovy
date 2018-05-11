@@ -86,7 +86,7 @@ class ContenidoServiceSpec extends Specification
         def org = new Organizacion(DATOS_ORG_VERIFICADA).save(flush: true)
         def command = new ArticuloCommand(DATOS_ARTICULO_VALIDO)
         when:
-        def articulo = service.actualizarArticulo(org, command)
+        def articulo = service.actualizarArticulo(command, org)
         then:
         articulo != null && Articulo.count() == 1
     }
@@ -96,7 +96,7 @@ class ContenidoServiceSpec extends Specification
         def org = new Organizacion(DATOS_ORG_VERIFICADA).save(flush: true)
         def command = new ArticuloCommand(DATOS_ARTICULO_INVALIDO)
         when:
-        def articulo = service.actualizarArticulo(org, command)
+        def articulo = service.actualizarArticulo(command, org)
         then:
         articulo == null && Articulo.count() == 0
     }
@@ -105,7 +105,7 @@ class ContenidoServiceSpec extends Specification
         def org = new Organizacion(DATOS_ORG_VERIFICADA).save(flush: true)
         def command = new ArticuloCommand(DATOS_ARTICULO_VALIDO)
         when:
-        def articulo = service.actualizarArticulo(org, command)
+        def articulo = service.actualizarArticulo(command, org)
         then:
         articulo.hasErrors() && Articulo.count() == 0
     }
@@ -114,7 +114,7 @@ class ContenidoServiceSpec extends Specification
         def articulo = crearArticulo(DATOS_ARTICULO)
         def command = new ArticuloCommand(DATOS_ARTICULO_MODIFICADO << [id: 1])
         when:
-        articulo = service.actualizarArticulo(articulo.organizacion, command)
+        articulo = service.actualizarArticulo(command, articulo.organizacion)
         then:
         Articulo.count() == 1
         comprobarArticulo(articulo, command)
