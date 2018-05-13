@@ -35,11 +35,11 @@
 
 <body>
 
-  <g:render template="/components/nav"/>
+  <g:render template="/components/nav" plugin="munaylab-sites"/>
 
   <g:layoutBody/>
 
-  <g:render template="/components/footer"/>
+  <g:render template="/components/footer" plugin="munaylab-sites"/>
 
 </body>
 

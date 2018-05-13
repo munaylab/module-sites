@@ -19,20 +19,19 @@ import org.munaylab.security.UserRole
 class BootStrap {
 
     def init = { servletContext ->
-        log.info "initializing..."
-
         environments {
             development {
-                crearOrganizacion()
+                def user = crearUsuario()
+                def org = crearOrganizacion(user)
+                agregarArticulos(org, user)
+                crearPlanificacion(org)
             }
         }
     }
 
-    void crearOrganizacion() {
+    private User crearUsuario() {
         Role oscAdmin = Role.findByAuthority('ROLE_OSC_ADMIN')
-                ?: new Role(authority: 'ROLE_OSC_ADMIN').save()
-        def admin = TipoUsuario.findByNombre('ADMINISTRADOR')
-                ?: new TipoUsuario(nombre: 'ADMINISTRADOR').save()
+                ?: new Role(authority: 'ROLE_OSC_ADMIN').save(failOnError: true)
         def user = User.findByUsername('mcaligares@gmail.com')
         if (!user) {
             user = new User().with {
@@ -41,9 +40,15 @@ class BootStrap {
                 apellido    = 'Caligares'
                 password    = 'Pass1234!'
                 it
-            }.save()
-            new UserRole(user: user, role: oscAdmin).save()
+            }.save(failOnError: true)
+            new UserRole(user: user, role: oscAdmin).save(failOnError: true)
         }
+        return user
+    }
+
+    private Organizacion crearOrganizacion(User user) {
+        def admin = TipoUsuario.findByNombre('ADMINISTRADOR')
+                ?: new TipoUsuario(nombre: 'ADMINISTRADOR').save(failOnError: true)
         def org = Organizacion.findByNombre('MunayLab')
         if (!org) {
             org = new Organizacion().with {
@@ -54,14 +59,12 @@ class BootStrap {
                 objeto      = 'Brindar herramientas innovadoras a las organizaciones de la sociedad civil.'
                 it
             }
-            org.addToAdmins(new UserOrganizacion(user: user, tipo: admin)).save()
+            org.addToAdmins(new UserOrganizacion(user: user, tipo: admin)).save(failOnError: true)
         }
-
-        crearPlanificacion(org)
-        agregarArticulos(org, user)
+        return org
     }
 
-    void agregarArticulos(Organizacion org, User user) {
+    private void agregarArticulos(Organizacion org, User user) {
         def landing = new Articulo().with {
             autor           = user
             organizacion    = org
@@ -72,7 +75,7 @@ class BootStrap {
             descripcion     = 'descripcion principal'
             contenido       = '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>'
             it
-        }.save()
+        }.save(failOnError: true)
         def principal = new Principal().with {
             titulo          = 'Titulo Principal'
             imagen          = 'http://www.csrindia.org/images/Banner-Social-Surfing.jpg'
@@ -88,31 +91,32 @@ class BootStrap {
         }
         principal.save(failOnError: true)
 
-        ['Mision', 'Nosotros', 'Programas', 'Contribuir', 'Contacto'].eachWithIndex { nombre, i ->
+        def nombreDeArticulos = ['Mision', 'Nosotros', 'Programas', 'Contribuir', 'Contacto']
+        nombreDeArticulos.eachWithIndex { nombreArticulo, i ->
             def articulo = new Articulo().with {
-                titulo          = nombre
+                titulo          = nombreArticulo
                 contenido       = '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>'
                 imagen          = 'http://placehold.it/900x800'
-                palabrasClaves  = nombre.toLowerCase()
-                descripcion     = "descripcion ${nombre.toLowerCase()}"
+                palabrasClaves  = nombreArticulo.toLowerCase()
+                descripcion     = "descripcion ${nombreArticulo.toLowerCase()}"
                 publicado       = true
                 autor           = user
                 organizacion    = org
                 it
-            }.save()
+            }.save(failOnError: true)
             def cabecera = new Cabecera().with {
-                organizacion    = org
-                contenido       = articulo
-                titulo          = articulo.titulo
-                nombre          = articulo.titulo.toLowerCase()
-                link            = nombre == 'Contacto' ? 'mailto:contacto@munaylab.org' : null
+                titulo          = nombreArticulo
+                nombre          = nombreArticulo
+                link            = nombreArticulo == 'Contacto' ? 'mailto:contacto@munaylab.org' : null
                 prioridad       = i
+                contenido       = articulo
+                organizacion    = org
                 it
-            }.save()
+            }.save(failOnError: true)
         }
     }
 
-    void crearPlanificacion(Organizacion org) {
+    private void crearPlanificacion(Organizacion org) {
         def programa = new Programa().with {
             nombre          = 'Innovaciones Sociales'
             imagen          = 'programa/innovacion'
@@ -120,16 +124,15 @@ class BootStrap {
             publicado       = true
             organizacion    = org
             it
-        }.save()
+        }
         def proyecto = new Proyecto().with {
             nombre          = 'Taller de Innovaciones'
             imagen          = 'proyecto/innovacion'
             descripcion     = 'Taller donde se exponen innovaciones para la sociedad.'
             publicado       = true
             organizacion    = org
-            programa        = programa
             it
-        }.save()
+        }
         def actividad = new Actividad().with {
             nombre          = 'Presentacion Innovacion'
             imagen          = 'actividad/innovacion'
@@ -138,9 +141,12 @@ class BootStrap {
             organizacion    = org
             proyecto        = proyecto
             it
-        }.save()
+        }
+        proyecto.addToActividades(actividad)
+        programa.addToProyectos(proyecto)
+        programa.save(failOnError: true)
     }
 
-    def destroy = {
-    }
+    def destroy = { }
+
 }

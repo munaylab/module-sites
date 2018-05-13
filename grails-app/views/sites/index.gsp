@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <meta name="layout" content="main"/>
+    <meta name="layout" content="site"/>
     <title><g:message code="label.plataforma.full"/></title>
   </head>
 
   <body>
-    <g:render template="/components/landing" model="[landing: principal]"/>
+    <g:render template="/components/landing" model="[landing: principal]" plugin="munaylab-sites"/>
 
     <g:set var="style" value="${true}"/>
     <g:each var="cabecera" in="${cabeceras}">
       <g:if test="${!cabecera.link}">
-        <g:render
-            template="/components/articulo"
+        <g:render plugin="munaylab-sites" template="/components/articulo"
             model="[titulo: cabecera.titulo, articulo: cabecera.contenido,
                     style: style, sinImagen: !cabecera.contenido.imagen]"/>
         <g:set var="style" value="${!style}"/>

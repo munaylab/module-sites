@@ -6,8 +6,8 @@ import org.munaylab.osc.Organizacion
 
 class SitesController {
 
-    def organizacionService
     def contenidoService
+    def organizacionService
 
     def index() {
         Organizacion org = organizacionService.buscarPorNombre(params.nombreURL)

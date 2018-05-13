@@ -27,7 +27,7 @@ class MunaylabSitesGrailsPlugin extends Plugin {
     // def license = "APACHE"
 
     // Details of company behind the plugin (if there is one)
-    // def organization = [ name: "My Company", url: "http://www.my-company.com/" ]
+    def organization = [ name: "MunayLab", url: "http://munaylab.org" ]
 
     // Any additional developers beyond the author specified above.
     // def developers = [ [ name: "Joe Bloggs", email: "joe@bloggs.net" ]]
