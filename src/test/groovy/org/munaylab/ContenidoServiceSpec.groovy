@@ -20,6 +20,29 @@ class ContenidoServiceSpec extends Specification
         mockDomains Organizacion, User, Articulo, Cabecera, Principal
     }
 
+    void 'obtener lista de articulos'() {
+        given:
+        def articulo = crearArticulo(DATOS_ARTICULO)
+        expect:
+        service.obtenerTodosLosArticulos(articulo.organizacion).size() == 1
+    }
+    void 'obtener listado de articulos'() {
+        given:
+        def user = new User(DATOS_USER).save(flush: true)
+        def org = new Organizacion(DATOS_ORG_VERIFICADA).save(flush: true)
+        and:
+        def datos = DATOS_ARTICULO << [autor: user, organizacion: org]
+        10.times { new Articulo(datos).save(flush: true) }
+        expect:
+        service.obtenerTodosLosArticulos(org).size() == 10
+    }
+    private crearArticulo(datos) {
+        def user = new User(DATOS_USER).save(flush: true)
+        def org = new Organizacion(DATOS_ORG_VERIFICADA).save(flush: true)
+        datos << [autor: user, organizacion: org]
+        new Articulo(datos).save(flush: true)
+    }
+
     void 'articulo valido para editar'() {
         expect:
         service.esUnArticuloValidoParaEditar(
@@ -164,12 +187,6 @@ class ContenidoServiceSpec extends Specification
         def articulo = crearArticulo(DATOS_ARTICULO)
         datos << [contenido: articulo, organizacion: articulo.organizacion]
         new Cabecera(datos).save(flush: true)
-    }
-    private crearArticulo(datos) {
-        def user = new User(DATOS_USER).save(flush: true)
-        def org = new Organizacion(DATOS_ORG_VERIFICADA).save(flush: true)
-        datos << [autor: user, organizacion: org]
-        new Articulo(datos).save(flush: true)
     }
     void 'modificar cabecera con errores'() {
         given:

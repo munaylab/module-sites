@@ -16,6 +16,11 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class ContenidoService {
 
+    List<Articulo> obtenerTodosLosArticulos(Organizacion org) {
+        if (!org) return null
+        Articulo.findAllByOrganizacion(org)
+    }
+
     Articulo actualizarArticulo(ArticuloCommand command, Organizacion org) {
         if (!esUnArticuloValidoParaEditar(command, org)) return null
 
