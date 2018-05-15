@@ -28,33 +28,71 @@ class ContenidoServiceSpec extends Specification
     }
     void 'obtener listado de articulos'() {
         given:
-        def user = new User(DATOS_USER).save(flush: true)
-        def org = new Organizacion(DATOS_ORG_VERIFICADA).save(flush: true)
-        and:
-        def datos = DATOS_ARTICULO << [autor: user, organizacion: org]
+        def org = crearOrganizacion
+        def datos = DATOS_ARTICULO << [autor: crearUsuario, organizacion: org]
         10.times { new Articulo(datos).save(flush: true) }
         expect:
         service.obtenerTodosLosArticulos(org).size() == 10
     }
+    void 'buscar articulo sin especificar la organizacion'() {
+        expect:
+        null == service.buscarArticulosDeOrganizacionPor(null, null)
+    }
+    void 'buscar articulo encontrado'() {
+        given:
+        def articulo = crearArticulo(DATOS_ARTICULO)
+        def criteria = { eq 'titulo', 'Nosotros' }
+        expect:
+        service.buscarArticulosDeOrganizacionPor(articulo.organizacion, criteria).size() == 1
+    }
+    void 'buscar articulo no encontrado'() {
+        given:
+        def articulo = crearArticulo(DATOS_ARTICULO)
+        def criteria = { eq 'titulo', 'Otros' }
+        expect:
+        service.buscarArticulosDeOrganizacionPor(articulo.organizacion, criteria).isEmpty()
+    }
+    void 'buscar articulos'() {
+        given:
+        def org = crearOrganizacion
+        def criteria = { like 'titulo', 'Titulo%' }
+        and:
+        def datos = DATOS_ARTICULO << [autor: crearUsuario, organizacion: org]
+        20.times {
+            datos.titulo = "Titulo $it"
+            new Articulo(datos).save(flush: true)
+        }
+        expect:
+        service.buscarArticulosDeOrganizacionPor(org, criteria).size() == 20
+    }
     private crearArticulo(datos) {
-        def user = new User(DATOS_USER).save(flush: true)
-        def org = new Organizacion(DATOS_ORG_VERIFICADA).save(flush: true)
-        datos << [autor: user, organizacion: org]
+        datos << [autor: crearUsuario, organizacion: crearOrganizacion]
         new Articulo(datos).save(flush: true)
+    }
+    private User getCrearUsuario() {
+        new User(DATOS_USER).save(flush: true)
+    }
+    private Organizacion getCrearOrganizacion() {
+        new Organizacion(DATOS_ORG_VERIFICADA).save(flush: true)
+    }
+    private getCrearOrganizacionYUsuario() {
+        def user = crearUsuario
+        def org = crearOrganizacion
+        [org, user]
     }
 
     void 'articulo valido para editar'() {
         expect:
         service.esUnArticuloValidoParaEditar(
             new ArticuloCommand(DATOS_ARTICULO_VALIDO),
-            new Organizacion(DATOS_ORG_VERIFICADA).save(flush: true)
+            crearOrganizacion
         )
     }
     void 'articulo invalido para editar'() {
         expect:
         !service.esUnArticuloValidoParaEditar(
             new ArticuloCommand(DATOS_ARTICULO_INVALIDO),
-            new Organizacion(DATOS_ORG_VERIFICADA).save(flush: true)
+            crearOrganizacion
         )
     }
     void 'organizacion de articulo invalido para editar'() {
@@ -85,8 +123,7 @@ class ContenidoServiceSpec extends Specification
     }
     void 'agregar articulo correctamente'() {
         given:
-        def user = new User(DATOS_USER).save(flush: true)
-        def org = new Organizacion(DATOS_ORG_VERIFICADA).save(flush: true)
+        def (org, user) = crearOrganizacionYUsuario
         def command = new ArticuloCommand(DATOS_ARTICULO_VALIDO)
         when:
         def articulo = service.crearArticulo(command, org)
@@ -105,8 +142,7 @@ class ContenidoServiceSpec extends Specification
 
     void 'agregar articulo correctamente'() {
         given:
-        def user = new User(DATOS_USER).save(flush: true)
-        def org = new Organizacion(DATOS_ORG_VERIFICADA).save(flush: true)
+        def (org, user) = crearOrganizacionYUsuario
         def command = new ArticuloCommand(DATOS_ARTICULO_VALIDO)
         when:
         def articulo = service.actualizarArticulo(command, org)
@@ -115,8 +151,7 @@ class ContenidoServiceSpec extends Specification
     }
     void 'agregar articulo con errores'() {
         given:
-        def user = new User(DATOS_USER).save(flush: true)
-        def org = new Organizacion(DATOS_ORG_VERIFICADA).save(flush: true)
+        def (org, user) = crearOrganizacionYUsuario
         def command = new ArticuloCommand(DATOS_ARTICULO_INVALIDO)
         when:
         def articulo = service.actualizarArticulo(command, org)
@@ -125,10 +160,9 @@ class ContenidoServiceSpec extends Specification
     }
     void 'agregar articulo con error al guardar'() {
         given:
-        def org = new Organizacion(DATOS_ORG_VERIFICADA).save(flush: true)
         def command = new ArticuloCommand(DATOS_ARTICULO_VALIDO)
         when:
-        def articulo = service.actualizarArticulo(command, org)
+        def articulo = service.actualizarArticulo(command, crearOrganizacion)
         then:
         articulo.hasErrors() && Articulo.count() == 0
     }
@@ -156,14 +190,14 @@ class ContenidoServiceSpec extends Specification
         expect:
         service.esUnaCabeceraValidaParaEditar(
             new CabeceraCommand(DATOS_CABECERA_VALIDO),
-            new Organizacion(DATOS_ORG_VERIFICADA).save(flush: true)
+            crearOrganizacion
         )
     }
     void 'cabecera invalido para editar'() {
         expect:
         !service.esUnaCabeceraValidaParaEditar(
             new CabeceraCommand(DATOS_CABECERA_INVALIDO),
-            new Organizacion(DATOS_ORG_VERIFICADA).save(flush: true)
+            crearOrganizacion
         )
     }
     void 'cabecera con organizacion invalida para editar'() {

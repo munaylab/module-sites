@@ -16,6 +16,7 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class ContenidoService {
 
+    @Transactional(readOnly = true)
     List<Articulo> obtenerTodosLosArticulos(Organizacion org) {
         if (!org) return null
         Articulo.findAllByOrganizacion(org)
@@ -74,6 +75,7 @@ class ContenidoService {
         }
     }
 
+    @Transactional(readOnly = true)
     List<Cabecera> getCabecerasDeOrganizacion(Organizacion org) {
         Cabecera.findAllByOrganizacion(org, [sort: 'prioridad', order: 'asc'])
     }
@@ -211,5 +213,16 @@ class ContenidoService {
             if (!articulo) principal.errors.rejectValue('contenidoId', 'articulo.not.found')
         }
         principal
+    }
+
+    @Transactional(readOnly = true)
+    def buscarArticulosDeOrganizacionPor(Organizacion org, criteria) {
+        if (!org) return null
+
+        Articulo.withCriteria {
+            criteria.delegate = delegate
+            criteria()
+            eq 'organizacion', org
+        }
     }
 }
