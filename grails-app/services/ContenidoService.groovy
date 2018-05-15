@@ -17,6 +17,12 @@ import grails.gorm.transactions.Transactional
 class ContenidoService {
 
     @Transactional(readOnly = true)
+    Articulo obtenerArticulo(Long articuloId, Organizacion org) {
+        if (!org) return null
+        Articulo.findByIdAndOrganizacion(articuloId, org)
+    }
+
+    @Transactional(readOnly = true)
     List<Articulo> obtenerTodosLosArticulos(Organizacion org) {
         if (!org) return null
         Articulo.findAllByOrganizacion(org)

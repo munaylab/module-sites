@@ -20,6 +20,18 @@ class ContenidoServiceSpec extends Specification
         mockDomains Organizacion, User, Articulo, Cabecera, Principal
     }
 
+    void 'obtener articulo'() {
+        given:
+        def articulo = crearArticulo(DATOS_ARTICULO)
+        expect:
+        service.obtenerArticulo(1, articulo.organizacion) != null
+    }
+    void 'articulo no encontrado'() {
+        given:
+        def articulo = crearArticulo(DATOS_ARTICULO)
+        expect:
+        service.obtenerArticulo(2, articulo.organizacion) == null
+    }
     void 'obtener lista de articulos'() {
         given:
         def articulo = crearArticulo(DATOS_ARTICULO)
