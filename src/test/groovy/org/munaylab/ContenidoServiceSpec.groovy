@@ -8,6 +8,7 @@ import org.munaylab.contenido.Principal
 import org.munaylab.contenido.PrincipalCommand
 import org.munaylab.osc.Organizacion
 import org.munaylab.user.User
+import org.munaylab.plugins.ArchivoService
 
 import grails.testing.gorm.DataTest
 import grails.testing.services.ServiceUnitTest
@@ -18,6 +19,10 @@ class ContenidoServiceSpec extends Specification
 
     void setupSpec() {
         mockDomains Organizacion, User, Articulo, Cabecera, Principal
+    }
+
+    void setup() {
+        service.archivoService = Mock(ArchivoService)
     }
 
     void 'obtener articulo'() {
@@ -79,13 +84,13 @@ class ContenidoServiceSpec extends Specification
     }
     private crearArticulo(datos) {
         datos << [autor: crearUsuario, organizacion: crearOrganizacion]
-        new Articulo(datos).save(flush: true)
+        new Articulo(datos).save(flush: true, failOnError: true)
     }
     private User getCrearUsuario() {
-        new User(DATOS_USER).save(flush: true)
+        new User(DATOS_USER).save(flush: true, failOnError: true)
     }
     private Organizacion getCrearOrganizacion() {
-        new Organizacion(DATOS_ORG_VERIFICADA).save(flush: true)
+        new Organizacion(DATOS_ORG_VERIFICADA).save(flush: true, failOnError: true)
     }
     private getCrearOrganizacionYUsuario() {
         def user = crearUsuario
@@ -156,6 +161,7 @@ class ContenidoServiceSpec extends Specification
         given:
         def (org, user) = crearOrganizacionYUsuario
         def command = new ArticuloCommand(DATOS_ARTICULO_VALIDO)
+        1 * service.archivoService.actualizarArchivo(_) >> { null }
         when:
         def articulo = service.actualizarArticulo(command, org)
         then:

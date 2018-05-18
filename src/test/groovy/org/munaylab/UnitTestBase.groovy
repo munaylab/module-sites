@@ -13,18 +13,18 @@ interface UnitTestBase {
         objeto: 'brindar soluciones a las organizaciones sociales']
 
     static final DATOS_ARTICULO = [titulo: 'Nosotros', contenido: 'nosotros contenido',
-        imagen: 'imagen.jpg', palabrasClaves: 'keywords', descripcion: 'descripcion', publicado: false]
+        palabrasClaves: 'keywords', descripcion: 'descripcion', publicado: false]
 
     static final DATOS_ARTICULO_VALIDO = [orgId: 1, autorId: 1, titulo: 'Nosotros',
-        contenido: 'nosotros contenido', imagen: 'imagen.jpg', palabrasClaves: 'keywords',
+        contenido: 'nosotros contenido', palabrasClaves: 'keywords',
         descripcion: 'descripcion', publicado: false]
 
     static final DATOS_ARTICULO_MODIFICADO = [orgId: 1, autorId: 1, titulo: 'Nosotros modificado',
-        contenido: 'nosotros modificado', imagen: 'imagenmodificada.jpg',
-        palabrasClaves: 'keywords, modificado', descripcion: 'descripcion modificada', publicado: false]
+        contenido: 'nosotros modificado', palabrasClaves: 'keywords, modificado',
+        descripcion: 'descripcion modificada', publicado: false]
 
     static final DATOS_ARTICULO_INVALIDO = [orgId: 1, autorId: 1, contenido: 'nosotros contenido',
-        imagen: 'imagen.jpg', palabrasClaves: 'keywords', publicado: false]
+        palabrasClaves: 'keywords', publicado: false]
 
     static final DATOS_CABECERA_VALIDO = [orgId: 1, contenidoId: 1, titulo: 'titulo',
         nombre: 'nombre', link: 'link', prioridad: 0]

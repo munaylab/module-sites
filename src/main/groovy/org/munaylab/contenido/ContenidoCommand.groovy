@@ -1,5 +1,7 @@
 package org.munaylab.contenido
 
+import org.munaylab.plugins.ArchivoCommand
+
 import grails.validation.Validateable
 
 class ArticuloCommand implements Validateable {
@@ -9,7 +11,7 @@ class ArticuloCommand implements Validateable {
     Long autorId
     String titulo
     String contenido
-    String imagen
+    ArchivoCommand imagen
     String palabrasClaves
     String descripcion
     Boolean publicado

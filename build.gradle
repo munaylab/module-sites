@@ -105,5 +105,6 @@ test {
 grails {
     plugins {
         compile project(':munaylab-core')
+        compile project(':plugin-fileupload')
     }
 }

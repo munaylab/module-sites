@@ -2,13 +2,14 @@ package org.munaylab.contenido
 
 import org.munaylab.user.User
 import org.munaylab.osc.Organizacion
+import org.munaylab.plugins.Archivo
 
 class Articulo {
 
     User autor
     String titulo
     String contenido
-    String imagen
+    Archivo imagen
     String palabrasClaves
     String descripcion
     Boolean publicado = false

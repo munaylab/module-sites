@@ -10,11 +10,14 @@ import org.munaylab.contenido.Principal
 import org.munaylab.contenido.PrincipalCommand
 import org.munaylab.osc.Organizacion
 import org.munaylab.user.User
+import org.munaylab.plugins.Archivo
 
 import grails.gorm.transactions.Transactional
 
 @Transactional
 class ContenidoService {
+
+    def archivoService
 
     @Transactional(readOnly = true)
     Articulo obtenerArticulo(Long articuloId, Organizacion org) {
@@ -32,7 +35,13 @@ class ContenidoService {
         if (!esUnArticuloValidoParaEditar(command, org)) return null
 
         Articulo articulo = command.id ? modificarArticulo(command) : crearArticulo(command, org)
-        if (!articulo.hasErrors()) articulo.save()
+        if (!articulo.hasErrors()) {
+            Archivo imagen = archivoService.actualizarArchivo(command.imagen)
+            articulo.imagen = imagen
+            if (!imagen || !imagen.hasErrors()) {
+                articulo.save()
+            }
+        }
 
         return articulo
     }
@@ -49,7 +58,6 @@ class ContenidoService {
             articulo = new Articulo()
             articulo.errors.rejectValue('id', 'articulo.not.found')
         } else {
-            articulo.imagen = command.imagen
             articulo.titulo = command.titulo
             articulo.contenido = command.contenido
             articulo.descripcion = command.descripcion
