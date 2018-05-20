@@ -36,11 +36,11 @@ class ContenidoService {
 
         Articulo articulo = command.id ? modificarArticulo(command) : crearArticulo(command, org)
         if (!articulo.hasErrors()) {
-            Archivo imagen = archivoService.actualizarArchivo(command.imagen)
-            articulo.imagen = imagen
-            if (!imagen || !imagen.hasErrors()) {
-                articulo.save()
+            if (command.imagen.accion != 'none') {
+                Archivo imagen = archivoService.actualizarArchivo(command.imagen)
+                articulo.imagen = imagen
             }
+            articulo.save()
         }
 
         return articulo
@@ -70,7 +70,14 @@ class ContenidoService {
     @Transactional(readOnly = true)
     private Articulo crearArticulo(ArticuloCommand command, Organizacion org) {
         User autor = User.get(command.autorId)
-        Articulo articulo = new Articulo(command.properties)
+        Articulo articulo = new Articulo().with {
+            titulo          = command.titulo
+            contenido       = command.contenido
+            descripcion     = command.descripcion
+            palabrasClaves  = command.palabrasClaves
+            publicado       = command.publicado
+            it
+        }
         if (!autor) {
             articulo.errors.rejectValue('autor', 'autor.not.found')
         } else {

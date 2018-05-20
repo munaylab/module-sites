@@ -14,10 +14,12 @@ class ArticuloCommand implements Validateable {
     ArchivoCommand imagen
     String palabrasClaves
     String descripcion
-    Boolean publicado
+    Boolean publicado = Boolean.FALSE
 
     static constraints = {
         id nullable: true
+        orgId nullable: true
+        autorId nullable: true
         titulo size: 5..100
         contenido size: 10..5000
         imagen nullable: true

@@ -68,7 +68,6 @@ class BootStrap {
         def landing = new Articulo().with {
             autor           = user
             organizacion    = org
-            imagen          = 'http://placehold.it/600x400'
             publicado       = true
             titulo          = 'Principal'
             palabrasClaves  = 'principal'
@@ -96,7 +95,6 @@ class BootStrap {
             def articulo = new Articulo().with {
                 titulo          = nombreArticulo
                 contenido       = '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>'
-                imagen          = 'http://placehold.it/900x800'
                 palabrasClaves  = nombreArticulo.toLowerCase()
                 descripcion     = "descripcion ${nombreArticulo.toLowerCase()}"
                 publicado       = true
