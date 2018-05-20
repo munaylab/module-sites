@@ -2,4 +2,4 @@ include 'munaylab-core'
 project(':munaylab-core').projectDir = new File('../munaylab-core')
 
 include 'plugin-fileupload'
-project(':plugin-fileupload').projectDir = new File('../plugin-fileupload')
+project(':plugin-fileupload').projectDir = new File('../munaylab-plugin-fileupload')
