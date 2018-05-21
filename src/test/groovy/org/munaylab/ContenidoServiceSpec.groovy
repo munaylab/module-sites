@@ -151,7 +151,7 @@ class ContenidoServiceSpec extends Specification
     private void comprobarArticulo(articulo, command) {
         assert articulo.titulo == command.titulo
         assert articulo.contenido == command.contenido
-        assert articulo.imagen == command.imagen
+        //assert articulo.imagen == command.imagen
         assert articulo.palabrasClaves == command.palabrasClaves
         assert articulo.descripcion == command.descripcion
         assert articulo.publicado == command.publicado
@@ -161,7 +161,6 @@ class ContenidoServiceSpec extends Specification
         given:
         def (org, user) = crearOrganizacionYUsuario
         def command = new ArticuloCommand(DATOS_ARTICULO_VALIDO)
-        1 * service.archivoService.actualizarArchivo(_) >> { null }
         when:
         def articulo = service.actualizarArticulo(command, org)
         then:

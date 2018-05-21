@@ -17,11 +17,11 @@ interface UnitTestBase {
 
     static final DATOS_ARTICULO_VALIDO = [orgId: 1, autorId: 1, titulo: 'Nosotros',
         contenido: 'nosotros contenido', palabrasClaves: 'keywords',
-        descripcion: 'descripcion', publicado: false]
+        imagen: [accion: 'none'], descripcion: 'descripcion', publicado: false]
 
     static final DATOS_ARTICULO_MODIFICADO = [orgId: 1, autorId: 1, titulo: 'Nosotros modificado',
         contenido: 'nosotros modificado', palabrasClaves: 'keywords, modificado',
-        descripcion: 'descripcion modificada', publicado: false]
+        imagen: [accion: 'none'], descripcion: 'descripcion modificada', publicado: false]
 
     static final DATOS_ARTICULO_INVALIDO = [orgId: 1, autorId: 1, contenido: 'nosotros contenido',
         palabrasClaves: 'keywords', publicado: false]
