@@ -19,7 +19,7 @@ class Articulo {
     Date lastUpdated
 
     static constraints = {
-        titulo size: 5..100
+        titulo size: 5..100, unique: 'organizacion'
         contenido size: 10..5000
         imagen nullable: true
         palabrasClaves size: 3..1000

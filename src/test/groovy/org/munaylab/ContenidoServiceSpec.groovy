@@ -46,8 +46,11 @@ class ContenidoServiceSpec extends Specification
     void 'obtener listado de articulos'() {
         given:
         def org = crearOrganizacion
-        def datos = DATOS_ARTICULO << [autor: crearUsuario, organizacion: org]
-        10.times { new Articulo(datos).save(flush: true) }
+        def datos = DATOS_ARTICULO.clone() << [autor: crearUsuario, organizacion: org]
+        10.times {
+            datos.titulo = "Titulo $it"
+            new Articulo(datos).save(flush: true, failOnError: true)
+        }
         expect:
         service.obtenerTodosLosArticulos(org).size() == 10
     }
@@ -74,10 +77,10 @@ class ContenidoServiceSpec extends Specification
         def org = crearOrganizacion
         def criteria = { like 'titulo', 'Titulo%' }
         and:
-        def datos = DATOS_ARTICULO << [autor: crearUsuario, organizacion: org]
+        def datos = DATOS_ARTICULO.clone() << [autor: crearUsuario, organizacion: org]
         20.times {
             datos.titulo = "Titulo $it"
-            new Articulo(datos).save(flush: true)
+            new Articulo(datos).save(flush: true, failOnError: true)
         }
         expect:
         service.buscarArticulosDeOrganizacionPor(org, criteria).size() == 20
@@ -122,7 +125,7 @@ class ContenidoServiceSpec extends Specification
     void 'modificar articulo correctamente'() {
         given:
         crearArticulo(DATOS_ARTICULO)
-        def command = new ArticuloCommand(DATOS_ARTICULO_MODIFICADO << [id: 1])
+        def command = new ArticuloCommand(DATOS_ARTICULO_MODIFICADO.clone() << [id: 1])
         when:
         def articulo = service.modificarArticulo(command)
         then:
@@ -132,7 +135,7 @@ class ContenidoServiceSpec extends Specification
     void 'modificar articulo con errores'() {
         given:
         crearArticulo(DATOS_ARTICULO)
-        def command = new ArticuloCommand(DATOS_ARTICULO_MODIFICADO << [id: 2])
+        def command = new ArticuloCommand(DATOS_ARTICULO_MODIFICADO.clone() << [id: 2])
         when:
         def articulo = service.modificarArticulo(command)
         then:
@@ -147,6 +150,17 @@ class ContenidoServiceSpec extends Specification
         then:
         !articulo.hasErrors()
         comprobarArticulo(articulo, command)
+    }
+    void 'agregar articulo con mismo titulo'() {
+        given:
+        def articulo = crearArticulo(DATOS_ARTICULO)
+        def command = new ArticuloCommand(DATOS_ARTICULO_MODIFICADO)
+        and:
+        command.titulo = articulo.titulo
+        when:
+        def otroArticulo = service.actualizarArticulo(command, articulo.organizacion)
+        then:
+        otroArticulo.errors.getFieldError('titulo').codes.contains('articulo.titulo.unique')
     }
     private void comprobarArticulo(articulo, command) {
         assert articulo.titulo == command.titulo
@@ -186,7 +200,7 @@ class ContenidoServiceSpec extends Specification
     void 'modificar articulo correctamente'() {
         given:
         def articulo = crearArticulo(DATOS_ARTICULO)
-        def command = new ArticuloCommand(DATOS_ARTICULO_MODIFICADO << [id: 1])
+        def command = new ArticuloCommand(DATOS_ARTICULO_MODIFICADO.clone() << [id: 1])
         when:
         articulo = service.actualizarArticulo(command, articulo.organizacion)
         then:
@@ -221,7 +235,7 @@ class ContenidoServiceSpec extends Specification
     void 'modificar menu correctamente'() {
         given:
         crearMenu(DATOS_MENU)
-        def command = new MenuCommand(DATOS_MENU_MODIFICADA << [id: 1])
+        def command = new MenuCommand(DATOS_MENU_MODIFICADA.clone() << [id: 1])
         when:
         def menu = service.modificarMenu(command)
         then:
@@ -236,7 +250,7 @@ class ContenidoServiceSpec extends Specification
     void 'modificar menu con errores'() {
         given:
         crearMenu(DATOS_MENU)
-        def command = new MenuCommand(DATOS_MENU_MODIFICADA << [id: 2])
+        def command = new MenuCommand(DATOS_MENU_MODIFICADA.clone() << [id: 2])
         when:
         def menu = service.modificarMenu(command)
         then:
