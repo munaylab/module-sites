@@ -19,4 +19,7 @@ $(document).ready(function() {
       return false;
   });
 
+
 });
+
+var vm = new Vue({ el: '#wrapper' });

@@ -27,7 +27,7 @@
   <asset:javascript src="bootstrap.min.js"/>
   <asset:javascript src="scrollreveal.min.js"/>
   <asset:javascript src="jquery.easing.min.js"/>
-  <asset:javascript src="sites.min.js"/>
+  <asset:javascript src="vue.min.js"/>
 
   <g:layoutHead/>
 
@@ -41,6 +41,7 @@
 
   <g:render template="/components/footer" plugin="munaylab-sites"/>
 
+  <asset:javascript src="sites.js" />
 </body>
 
 </html>
