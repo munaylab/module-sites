@@ -97,6 +97,12 @@ class ContenidoService {
     }
 
     @Transactional(readOnly = true)
+    Cabecera obtenerCabecera(Long cabeceraId, Organizacion org) {
+        if (!org) return null
+        Cabecera.findByIdAndOrganizacion(cabeceraId, org)
+    }
+
+    @Transactional(readOnly = true)
     List<Cabecera> getCabecerasDeOrganizacion(Organizacion org) {
         Cabecera.findAllByOrganizacion(org, [sort: 'prioridad', order: 'asc'])
     }
@@ -140,14 +146,14 @@ class ContenidoService {
 
     @Transactional(readOnly = true)
     private Cabecera crearCabecera(CabeceraCommand command, Organizacion org) {
-        Articulo articulo = Articulo.get(command.contenidoId)
         Cabecera cabecera = new Cabecera(command.properties)
-        if (org && articulo) {
-            cabecera.organizacion = org
-            cabecera.contenido = articulo
-        } else {
-            if (!org) cabecera.errors.rejectValue('organizacion', 'org.not.found')
-            if (!articulo) cabecera.errors.rejectValue('contenidoId', 'articulo.not.found')
+        cabecera.organizacion = org
+        if (!org)
+            cabecera.errors.rejectValue('organizacion', 'org.not.found')
+        if (command.contenidoId) {
+            cabecera.contenido = Articulo.get(command.contenidoId)
+            if (!cabecera.contenido)
+                cabecera.errors.rejectValue('contenidoId', 'articulo.not.found')
         }
         cabecera
     }

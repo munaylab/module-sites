@@ -12,12 +12,12 @@ class Cabecera implements Serializable {
     static belongsTo = [organizacion: Organizacion]
 
     static constraints = {
-        id composite: ['titulo', 'organizacion']
         titulo nullable: false, blank: false
         nombre nullable: false, blank: false
         link nullable: true, blank: false
         prioridad nullable: false, range: 0..10
         contenido nullable: true
+        organizacion nullable: false
     }
 
 }

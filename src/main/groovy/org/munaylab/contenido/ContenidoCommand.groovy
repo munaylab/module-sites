@@ -41,7 +41,10 @@ class CabeceraCommand implements Validateable {
     static constraints = {
         id nullable: true
         orgId nullable: true
-        contenidoId nullable: false
+        contenidoId nullable: true, validator : { val, obj, errors ->
+            if (val == null && obj.link == null)
+                errors.rejectValue('contenidoId', 'error.contenido.y.link.null')
+        }
         titulo nullable: false, blank: false
         nombre nullable: false, blank: false
         link nullable: true, blank: false
