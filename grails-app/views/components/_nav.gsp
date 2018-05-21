@@ -4,7 +4,10 @@
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed"
           data-toggle="collapse" data-target="#navbar-collapse">
-        <span class="sr-only">Navegación</span> <i class="fa fa-1x fa-bars"></i>
+        <span class="sr-only">Navegación</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand page-scroll" href="#section-top">
         <g:if test="${org}">
