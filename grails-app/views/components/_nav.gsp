@@ -27,7 +27,8 @@
               <a class="external-link btn btn-default navbar-btn" href="${item.link}">${item.nombre}</a>
             </g:if>
             <g:else>
-              <a class="page-scroll" href="#${item.nombre}">${item.nombre}</a>
+              <a class="page-scroll"
+                  href="#${item.nombre.toLowerCase()}">${item.nombre}</a>
             </g:else>
           </li>
         </g:each>

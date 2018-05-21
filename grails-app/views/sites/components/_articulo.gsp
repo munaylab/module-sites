@@ -7,7 +7,11 @@
     <div class="row">
 
       <div class="columna-1" :class="imagen ? 'col-md-6' : 'col-md-12'">
-        <h2 class="title-animation" v-html="titulo"></h2>
+        <h1 v-if="landing" class="title-animation" v-html="titulo"></h1>
+        <h2 v-else class="title-animation">
+          <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
+          {{ titulo }}
+        </h2>
         <div class="content-animation" v-html="markdown"></div>
       </div>
 

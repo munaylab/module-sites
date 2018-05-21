@@ -40,12 +40,12 @@ body footer {
 section {
   display: block;
   overflow: auto;
-  padding-top: 70px;
   width: 100% !important;
 }
 @media (min-width: 768px) {
   section {
     height: 100vh;
+    padding-top: 70px;
   }
 }
 section#section-top {
@@ -67,6 +67,16 @@ section .columna-1 {
 section .columna-1 h1,
 section .columna-1 h2 {
   margin-bottom: 25px;
+}
+section .columna-1 h2 span.glyphicon {
+  opacity: .5;
+  font-size: 20px;
+  position: absolute;
+  left: -22px;
+  top: 7px;
+}
+section .columna-1 h2:hover span.glyphicon {
+  opacity: 1;
 }
 section .columna-2 {
   padding: 2em;

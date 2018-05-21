@@ -46,13 +46,13 @@ body {
 section {
   @media (min-width: @screen-sm-min) {
     height: 100vh;
+    padding-top: 70px;
   }
   &#section-top {
     height: 100vh;
   }
   display: block;
   overflow: auto;
-  padding-top: 70px;
   width: 100% !important;
   &.inverted {
     background-color: rgba(0, 0, 0, 0.2);
@@ -68,6 +68,20 @@ section {
     padding: 2em;
     h1, h2 {
       margin-bottom: 25px;
+    }
+    h2 {
+      span.glyphicon {
+        opacity: .5;
+        font-size: 20px;
+        position: absolute;
+        left: -22px;
+        top: 7px;
+      }
+      &:hover {
+        span.glyphicon {
+          opacity: 1;
+        }
+      }
     }
   }
   .columna-2 {
