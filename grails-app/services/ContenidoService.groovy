@@ -128,16 +128,16 @@ class ContenidoService {
             menu = new Menu()
             menu.errors.rejectValue('id', 'menu.not.found')
         } else {
-            menu.titulo = command.titulo
             menu.nombre = command.nombre
+            menu.texto = command.texto
             menu.link = command.link
             menu.prioridad = command.prioridad
-            if (menu.contenido.id != command.contenidoId) {
-                Articulo articulo = Articulo.get(command.contenidoId)
+            if (menu?.articulo?.id != command.articuloId) {
+                Articulo articulo = Articulo.get(command.articuloId)
                 if (articulo) {
-                    menu.contenido = articulo
+                    menu.articulo = articulo
                 } else {
-                    menu.errors.rejectValue('contenido', 'articulo.not.found')
+                    menu.errors.rejectValue('articulo', 'articulo.not.found')
                 }
             }
         }
@@ -150,10 +150,10 @@ class ContenidoService {
         menu.organizacion = org
         if (!org)
             menu.errors.rejectValue('organizacion', 'org.not.found')
-        if (command.contenidoId) {
-            menu.contenido = Articulo.get(command.contenidoId)
-            if (!menu.contenido)
-                menu.errors.rejectValue('contenidoId', 'articulo.not.found')
+        if (command.articuloId) {
+            menu.articulo = Articulo.get(command.articuloId)
+            if (!menu.articulo)
+                menu.errors.rejectValue('articulo', 'articulo.not.found')
         }
         menu
     }

@@ -21,10 +21,10 @@
         <g:each var="item" in="${menu}">
           <li>
             <g:if test="${item.link}">
-              <a class="external-link btn btn-default navbar-btn" href="${item.link}">${item.nombre}</a>
+              <a class="external-link btn btn-default navbar-btn" href="${item.link}">${item.texto}</a>
             </g:if>
             <g:else>
-              <a class="page-scroll" href="#${item.titulo}">${item.nombre}</a>
+              <a class="page-scroll" href="#${item.texto}">${item.texto}</a>
             </g:else>
           </li>
         </g:each>

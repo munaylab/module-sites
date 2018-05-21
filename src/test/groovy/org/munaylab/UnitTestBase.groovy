@@ -26,14 +26,14 @@ interface UnitTestBase {
     static final DATOS_ARTICULO_INVALIDO = [orgId: 1, autorId: 1, contenido: 'nosotros contenido',
         palabrasClaves: 'keywords', publicado: false]
 
-    static final DATOS_MENU_VALIDO = [orgId: 1, contenidoId: 1, titulo: 'titulo',
+    static final DATOS_MENU_VALIDO = [orgId: 1, articuloId: 1, texto: 'texto',
         nombre: 'nombre', link: 'link', prioridad: 0]
 
-    static final DATOS_MENU_INVALIDO = [orgId: 1, contenidoId: 1, link: 'link', prioridad: 0]
+    static final DATOS_MENU_INVALIDO = [orgId: 1, articuloId: 1, link: 'link', prioridad: 0]
 
-    static final DATOS_MENU = [titulo: 'Titulo', nombre: 'Nombre', link: 'link', prioridad: 0]
+    static final DATOS_MENU = [texto: 'Titulo', nombre: 'Nombre', link: 'link', prioridad: 0]
 
-    static final DATOS_MENU_MODIFICADA = [orgId: 1, contenidoId: 1, titulo: 'titulo modificado',
+    static final DATOS_MENU_MODIFICADA = [orgId: 1, articuloId: 1, texto: 'texto modificado',
         nombre: 'nombre modificado', link: 'link_modificado', prioridad: 1]
 
     static final DATOS_PRINCIPAL_VALIDOS = [orgId: 1, contenidoId: 1, titulo: 'Pagina Principal']

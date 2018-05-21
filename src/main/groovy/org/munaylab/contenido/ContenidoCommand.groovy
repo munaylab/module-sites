@@ -32,8 +32,8 @@ class MenuCommand implements Validateable {
 
     Long id
     Long orgId
-    Long contenidoId
-    String titulo
+    Long articuloId
+    String texto
     String nombre
     String link
     Integer prioridad
@@ -41,11 +41,11 @@ class MenuCommand implements Validateable {
     static constraints = {
         id nullable: true
         orgId nullable: true
-        contenidoId nullable: true, validator : { val, obj, errors ->
+        articuloId nullable: true, validator : { val, obj, errors ->
             if (val == null && obj.link == null)
                 errors.rejectValue('contenidoId', 'error.contenido.y.link.null')
         }
-        titulo nullable: false, blank: false
+        texto nullable: false, blank: false
         nombre nullable: false, blank: false
         link nullable: true, blank: false
         prioridad nullable: false, range: 0..10

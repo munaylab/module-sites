@@ -12,8 +12,8 @@
     <g:each var="item" in="${menu}">
       <g:if test="${!item.link}">
         <g:render plugin="munaylab-sites" template="/components/articulo"
-            model="[titulo: item.titulo, articulo: item.contenido,
-                    style: style, sinImagen: !item.contenido.imagen]"/>
+            model="[titulo: item.texto, articulo: item.articulo,
+                    style: style, sinImagen: !item.articulo.imagen]"/>
         <g:set var="style" value="${!style}"/>
       </g:if>
     </g:each>

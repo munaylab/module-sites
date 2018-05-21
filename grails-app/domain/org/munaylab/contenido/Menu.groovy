@@ -4,19 +4,19 @@ import org.munaylab.osc.Organizacion
 
 class Menu implements Serializable {
 
-    String titulo
     String nombre
+    String texto
     String link
     Integer prioridad
-    Articulo contenido
+    Articulo articulo
     static belongsTo = [organizacion: Organizacion]
 
     static constraints = {
-        titulo nullable: false, blank: false
         nombre nullable: false, blank: false
+        texto nullable: false, blank: false
         link nullable: true, blank: false
         prioridad nullable: false, range: 0..10
-        contenido nullable: true
+        articulo nullable: true
         organizacion nullable: false
     }
 

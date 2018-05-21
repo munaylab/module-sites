@@ -103,11 +103,11 @@ class BootStrap {
                 it
             }.save(failOnError: true)
             def menu = new Menu().with {
-                titulo          = nombreArticulo
                 nombre          = nombreArticulo
+                texto           = nombreArticulo
                 link            = nombreArticulo == 'Contacto' ? 'mailto:contacto@munaylab.org' : null
                 prioridad       = i
-                contenido       = articulo
+                articulo        = articulo
                 organizacion    = org
                 it
             }.save(failOnError: true)
