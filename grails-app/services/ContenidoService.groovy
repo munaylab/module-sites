@@ -4,8 +4,8 @@ import org.munaylab.contenido.Accion
 import org.munaylab.contenido.AccionCommand
 import org.munaylab.contenido.Articulo
 import org.munaylab.contenido.ArticuloCommand
-import org.munaylab.contenido.Cabecera
-import org.munaylab.contenido.CabeceraCommand
+import org.munaylab.contenido.Menu
+import org.munaylab.contenido.MenuCommand
 import org.munaylab.contenido.Principal
 import org.munaylab.contenido.PrincipalCommand
 import org.munaylab.osc.Organizacion
@@ -97,65 +97,65 @@ class ContenidoService {
     }
 
     @Transactional(readOnly = true)
-    Cabecera obtenerCabecera(Long cabeceraId, Organizacion org) {
+    Menu obtenerMenu(Long menuId, Organizacion org) {
         if (!org) return null
-        Cabecera.findByIdAndOrganizacion(cabeceraId, org)
+        Menu.findByIdAndOrganizacion(menuId, org)
     }
 
     @Transactional(readOnly = true)
-    List<Cabecera> getCabecerasDeOrganizacion(Organizacion org) {
-        Cabecera.findAllByOrganizacion(org, [sort: 'prioridad', order: 'asc'])
+    List<Menu> getMenuDeOrganizacion(Organizacion org) {
+        Menu.findAllByOrganizacion(org, [sort: 'prioridad', order: 'asc'])
     }
 
-    Cabecera actualizarCabecera(Organizacion org, CabeceraCommand command) {
-        if (!esUnaCabeceraValidaParaEditar(command, org)) return null
+    Menu actualizarMenu(Organizacion org, MenuCommand command) {
+        if (!esUnMenuValidoParaEditar(command, org)) return null
 
-        Cabecera cabecera = command.id ? modificarCabecera(command) : crearCabecera(command, org)
-        if (!cabecera.hasErrors()) cabecera.save()
+        Menu menu = command.id ? modificarMenu(command) : crearMenu(command, org)
+        if (!menu.hasErrors()) menu.save()
 
-        return cabecera
+        return menu
     }
 
     @Transactional(readOnly = true)
-    private boolean esUnaCabeceraValidaParaEditar(CabeceraCommand command, Organizacion org) {
+    private boolean esUnMenuValidoParaEditar(MenuCommand command, Organizacion org) {
         return command && command.validate() && org.id == command.orgId
     }
 
     @Transactional(readOnly = true)
-    private Cabecera modificarCabecera(CabeceraCommand command) {
-        Cabecera cabecera = Cabecera.get(command.id)
-        if (!cabecera) {
-            cabecera = new Cabecera()
-            cabecera.errors.rejectValue('id', 'cabecera.not.found')
+    private Menu modificarMenu(MenuCommand command) {
+        Menu menu = Menu.get(command.id)
+        if (!menu) {
+            menu = new Menu()
+            menu.errors.rejectValue('id', 'menu.not.found')
         } else {
-            cabecera.titulo = command.titulo
-            cabecera.nombre = command.nombre
-            cabecera.link = command.link
-            cabecera.prioridad = command.prioridad
-            if (cabecera.contenido.id != command.contenidoId) {
+            menu.titulo = command.titulo
+            menu.nombre = command.nombre
+            menu.link = command.link
+            menu.prioridad = command.prioridad
+            if (menu.contenido.id != command.contenidoId) {
                 Articulo articulo = Articulo.get(command.contenidoId)
                 if (articulo) {
-                    cabecera.contenido = articulo
+                    menu.contenido = articulo
                 } else {
-                    cabecera.errors.rejectValue('contenido', 'articulo.not.found')
+                    menu.errors.rejectValue('contenido', 'articulo.not.found')
                 }
             }
         }
-        cabecera
+        menu
     }
 
     @Transactional(readOnly = true)
-    private Cabecera crearCabecera(CabeceraCommand command, Organizacion org) {
-        Cabecera cabecera = new Cabecera(command.properties)
-        cabecera.organizacion = org
+    private Menu crearMenu(MenuCommand command, Organizacion org) {
+        Menu menu = new Menu(command.properties)
+        menu.organizacion = org
         if (!org)
-            cabecera.errors.rejectValue('organizacion', 'org.not.found')
+            menu.errors.rejectValue('organizacion', 'org.not.found')
         if (command.contenidoId) {
-            cabecera.contenido = Articulo.get(command.contenidoId)
-            if (!cabecera.contenido)
-                cabecera.errors.rejectValue('contenidoId', 'articulo.not.found')
+            menu.contenido = Articulo.get(command.contenidoId)
+            if (!menu.contenido)
+                menu.errors.rejectValue('contenidoId', 'articulo.not.found')
         }
-        cabecera
+        menu
     }
 
     @Transactional(readOnly = true)

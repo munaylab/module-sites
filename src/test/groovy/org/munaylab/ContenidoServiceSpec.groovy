@@ -2,8 +2,8 @@ package org.munaylab
 
 import org.munaylab.contenido.Articulo
 import org.munaylab.contenido.ArticuloCommand
-import org.munaylab.contenido.Cabecera
-import org.munaylab.contenido.CabeceraCommand
+import org.munaylab.contenido.Menu
+import org.munaylab.contenido.MenuCommand
 import org.munaylab.contenido.Principal
 import org.munaylab.contenido.PrincipalCommand
 import org.munaylab.osc.Organizacion
@@ -18,7 +18,7 @@ class ContenidoServiceSpec extends Specification
         implements ServiceUnitTest<ContenidoService>, DataTest, UnitTestBase {
 
     void setupSpec() {
-        mockDomains Organizacion, User, Articulo, Cabecera, Principal
+        mockDomains Organizacion, User, Articulo, Menu, Principal
     }
 
     void setup() {
@@ -203,67 +203,61 @@ class ContenidoServiceSpec extends Specification
         Articulo.count() == 0
     }
 
-    void 'cabecera valida para editar'() {
+    void 'menu valido para editar'() {
         expect:
-        service.esUnaCabeceraValidaParaEditar(
-            new CabeceraCommand(DATOS_CABECERA_VALIDO),
-            crearOrganizacion
-        )
+        service.esUnMenuValidoParaEditar(new MenuCommand(DATOS_MENU_VALIDO), crearOrganizacion)
     }
-    void 'cabecera invalido para editar'() {
+    void 'menu invalido para editar'() {
         expect:
-        !service.esUnaCabeceraValidaParaEditar(
-            new CabeceraCommand(DATOS_CABECERA_INVALIDO),
-            crearOrganizacion
-        )
+        !service.esUnMenuValidoParaEditar(new MenuCommand(DATOS_MENU_INVALIDO), crearOrganizacion)
     }
-    void 'cabecera con organizacion invalida para editar'() {
+    void 'menu con organizacion invalida para editar'() {
         expect:
-        !service.esUnaCabeceraValidaParaEditar(
-            new CabeceraCommand(DATOS_CABECERA_VALIDO),
+        !service.esUnMenuValidoParaEditar(
+            new MenuCommand(DATOS_MENU_VALIDO),
             new Organizacion()
         )
     }
-    void 'modificar cabecera correctamente'() {
+    void 'modificar menu correctamente'() {
         given:
-        crearCabecera(DATOS_CABECERA)
-        def command = new CabeceraCommand(DATOS_CABECERA_MODIFICADA << [id: 1])
+        crearMenu(DATOS_MENU)
+        def command = new MenuCommand(DATOS_MENU_MODIFICADA << [id: 1])
         when:
-        def cabecera = service.modificarCabecera(command)
+        def menu = service.modificarMenu(command)
         then:
-        !cabecera.hasErrors() && Cabecera.count() == 1
-        comprobarCabecera(cabecera, command)
+        !menu.hasErrors() && Menu.count() == 1
+        comprobarMenu(menu, command)
     }
-    private crearCabecera(datos) {
+    private crearMenu(datos) {
         def articulo = crearArticulo(DATOS_ARTICULO)
         datos << [contenido: articulo, organizacion: articulo.organizacion]
-        new Cabecera(datos).save(flush: true)
+        new Menu(datos).save(flush: true)
     }
-    void 'modificar cabecera con errores'() {
+    void 'modificar menu con errores'() {
         given:
-        crearCabecera(DATOS_CABECERA)
-        def command = new CabeceraCommand(DATOS_CABECERA_MODIFICADA << [id: 2])
+        crearMenu(DATOS_MENU)
+        def command = new MenuCommand(DATOS_MENU_MODIFICADA << [id: 2])
         when:
-        def cabecera = service.modificarCabecera(command)
+        def menu = service.modificarMenu(command)
         then:
-        cabecera.hasErrors() && Cabecera.count() == 1
+        menu.hasErrors() && Menu.count() == 1
     }
-    void 'agregar cabecera correctamente'() {
+    void 'agregar menu correctamente'() {
         given:
         def articulo = crearArticulo(DATOS_ARTICULO)
-        def command = new CabeceraCommand(DATOS_CABECERA_VALIDO)
+        def command = new MenuCommand(DATOS_MENU_VALIDO)
         when:
-        def cabecera = service.crearCabecera(command, articulo.organizacion)
+        def menu = service.crearMenu(command, articulo.organizacion)
         then:
-        !cabecera.hasErrors()
-        comprobarCabecera(cabecera, command)
+        !menu.hasErrors()
+        comprobarMenu(menu, command)
     }
-    private void comprobarCabecera(cabecera, command) {
-        assert cabecera.titulo == command.titulo
-        assert cabecera.nombre == command.nombre
-        assert cabecera.link == command.link
-        assert cabecera.prioridad == command.prioridad
-        assert cabecera.contenido.id == command.contenidoId
+    private void comprobarMenu(menu, command) {
+        assert menu.titulo == command.titulo
+        assert menu.nombre == command.nombre
+        assert menu.link == command.link
+        assert menu.prioridad == command.prioridad
+        assert menu.contenido.id == command.contenidoId
     }
 
     void 'agregar contenido principal'() {

@@ -9,11 +9,11 @@
     <g:render template="/components/landing" model="[landing: principal]" plugin="munaylab-sites"/>
 
     <g:set var="style" value="${true}"/>
-    <g:each var="cabecera" in="${cabeceras}">
-      <g:if test="${!cabecera.link}">
+    <g:each var="item" in="${menu}">
+      <g:if test="${!item.link}">
         <g:render plugin="munaylab-sites" template="/components/articulo"
-            model="[titulo: cabecera.titulo, articulo: cabecera.contenido,
-                    style: style, sinImagen: !cabecera.contenido.imagen]"/>
+            model="[titulo: item.titulo, articulo: item.contenido,
+                    style: style, sinImagen: !item.contenido.imagen]"/>
         <g:set var="style" value="${!style}"/>
       </g:if>
     </g:each>

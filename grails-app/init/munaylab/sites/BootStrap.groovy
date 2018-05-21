@@ -4,7 +4,7 @@ import org.munaylab.user.User
 import org.munaylab.categoria.TipoUsuario
 import org.munaylab.contenido.Accion
 import org.munaylab.contenido.Articulo
-import org.munaylab.contenido.Cabecera
+import org.munaylab.contenido.Menu
 import org.munaylab.contenido.Principal
 import org.munaylab.osc.Organizacion
 import org.munaylab.osc.EstadoOrganizacion
@@ -102,7 +102,7 @@ class BootStrap {
                 organizacion    = org
                 it
             }.save(failOnError: true)
-            def cabecera = new Cabecera().with {
+            def menu = new Menu().with {
                 titulo          = nombreArticulo
                 nombre          = nombreArticulo
                 link            = nombreArticulo == 'Contacto' ? 'mailto:contacto@munaylab.org' : null

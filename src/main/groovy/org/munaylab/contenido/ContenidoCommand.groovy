@@ -28,7 +28,7 @@ class ArticuloCommand implements Validateable {
     }
 }
 
-class CabeceraCommand implements Validateable {
+class MenuCommand implements Validateable {
 
     Long id
     Long orgId

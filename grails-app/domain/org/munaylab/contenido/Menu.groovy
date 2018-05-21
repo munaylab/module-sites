@@ -2,7 +2,7 @@ package org.munaylab.contenido
 
 import org.munaylab.osc.Organizacion
 
-class Cabecera implements Serializable {
+class Menu implements Serializable {
 
     String titulo
     String nombre

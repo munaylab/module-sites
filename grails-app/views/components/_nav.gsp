@@ -18,13 +18,13 @@
 
     <div class="collapse navbar-collapse" id="navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
-        <g:each var="cabecera" in="${cabeceras}">
+        <g:each var="item" in="${menu}">
           <li>
-            <g:if test="${cabecera.link}">
-              <a class="external-link btn btn-default navbar-btn" href="${cabecera.link}">${cabecera.nombre}</a>
+            <g:if test="${item.link}">
+              <a class="external-link btn btn-default navbar-btn" href="${item.link}">${item.nombre}</a>
             </g:if>
             <g:else>
-              <a class="page-scroll" href="#${cabecera.titulo}">${cabecera.nombre}</a>
+              <a class="page-scroll" href="#${item.titulo}">${item.nombre}</a>
             </g:else>
           </li>
         </g:each>
