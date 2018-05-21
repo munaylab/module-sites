@@ -8,6 +8,7 @@ class Articulo {
 
     User autor
     String titulo
+    String url
     String contenido
     Archivo imagen
     String palabrasClaves
@@ -20,6 +21,7 @@ class Articulo {
 
     static constraints = {
         titulo size: 5..100, unique: 'organizacion'
+        url nullable: true, size: 5..500, unique: 'organizacion'
         contenido size: 10..5000
         imagen nullable: true
         palabrasClaves size: 3..1000
