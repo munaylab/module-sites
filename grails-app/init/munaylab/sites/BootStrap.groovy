@@ -92,9 +92,13 @@ class BootStrap {
 
         def nombreDeArticulos = ['Mision', 'Nosotros', 'Programas', 'Contribuir', 'Contacto']
         nombreDeArticulos.eachWithIndex { nombreArticulo, i ->
-            def articulo = new Articulo().with {
+            def article = new Articulo().with {
                 titulo          = nombreArticulo
-                contenido       = '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>'
+                contenido       = """
+                # Titulo ${nombreArticulo}
+
+                Texto acerca del articulo **${nombreArticulo}** que contiene informacion muy importante y necesaria para el proyecto
+                """
                 palabrasClaves  = nombreArticulo.toLowerCase()
                 descripcion     = "descripcion ${nombreArticulo.toLowerCase()}"
                 publicado       = true
@@ -104,10 +108,9 @@ class BootStrap {
             }.save(failOnError: true)
             def menu = new Menu().with {
                 nombre          = nombreArticulo
-                texto           = nombreArticulo
                 link            = nombreArticulo == 'Contacto' ? 'mailto:contacto@munaylab.org' : null
                 prioridad       = i
-                articulo        = articulo
+                articulo        = article
                 organizacion    = org
                 it
             }.save(failOnError: true)

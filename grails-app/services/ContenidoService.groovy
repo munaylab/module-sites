@@ -129,7 +129,6 @@ class ContenidoService {
             menu.errors.rejectValue('id', 'menu.not.found')
         } else {
             menu.nombre = command.nombre
-            menu.texto = command.texto
             menu.link = command.link
             menu.prioridad = command.prioridad
             if (menu?.articulo?.id != command.articuloId) {

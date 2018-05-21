@@ -33,7 +33,6 @@ class MenuCommand implements Validateable {
     Long id
     Long orgId
     Long articuloId
-    String texto
     String nombre
     String link
     Integer prioridad
@@ -45,7 +44,6 @@ class MenuCommand implements Validateable {
             if (val == null && obj.link == null)
                 errors.rejectValue('contenidoId', 'error.contenido.y.link.null')
         }
-        texto nullable: false, blank: false
         nombre nullable: false, blank: false
         link nullable: true, blank: false
         prioridad nullable: false, range: 0..10

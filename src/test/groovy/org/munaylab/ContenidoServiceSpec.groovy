@@ -254,7 +254,6 @@ class ContenidoServiceSpec extends Specification
     }
     private void comprobarMenu(menu, command) {
         assert menu.nombre == command.nombre
-        assert menu.texto == command.texto
         assert menu.link == command.link
         assert menu.prioridad == command.prioridad
         assert menu.articulo.id == command.articuloId
