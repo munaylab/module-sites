@@ -251,4 +251,11 @@ class ContenidoService {
             eq 'organizacion', org
         }
     }
+
+    @Transactional(readOnly = true)
+    Articulo buscarArticulo(String urlDeArticulo, Organizacion org) {
+        if (!org) return null
+
+        Articulo.findPublicadoByUrlAndOrganizacion(urlDeArticulo, org)
+    }
 }

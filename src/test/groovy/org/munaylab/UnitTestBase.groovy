@@ -12,7 +12,7 @@ interface UnitTestBase {
         nombreURL: 'fundacion_munaylab', estado: EstadoOrganizacion.VERIFICADA,
         objeto: 'brindar soluciones a las organizaciones sociales']
 
-    static final DATOS_ARTICULO = [titulo: 'Nosotros', contenido: 'nosotros contenido',
+    static final DATOS_ARTICULO = [titulo: 'Nosotros', contenido: 'nosotros contenido', url: 'nosotros',
         palabrasClaves: 'keywords', descripcion: 'descripcion', publicado: false]
 
     static final DATOS_ARTICULO_VALIDO = [orgId: 1, autorId: 1, titulo: 'Nosotros',

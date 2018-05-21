@@ -49,6 +49,7 @@ class ContenidoServiceSpec extends Specification
         def datos = DATOS_ARTICULO.clone() << [autor: crearUsuario, organizacion: org]
         10.times {
             datos.titulo = "Titulo $it"
+            datos.url = "url_$it"
             new Articulo(datos).save(flush: true, failOnError: true)
         }
         expect:
@@ -80,6 +81,7 @@ class ContenidoServiceSpec extends Specification
         def datos = DATOS_ARTICULO.clone() << [autor: crearUsuario, organizacion: org]
         20.times {
             datos.titulo = "Titulo $it"
+            datos.url = "url_$it"
             new Articulo(datos).save(flush: true, failOnError: true)
         }
         expect:
@@ -281,5 +283,20 @@ class ContenidoServiceSpec extends Specification
         def principal = service.actualizarPrincipal(command, articulo.organizacion)
         then:
         principal.id != null && Principal.count() == 1
+    }
+
+    void 'buscar articulo'() {
+        given:
+        def articulo = crearArticulo(DATOS_ARTICULO)
+        articulo.publicado = true
+        articulo.save(flush: true)
+        expect:
+        service.buscarArticulo('nosotros', articulo.organizacion)
+    }
+    void 'buscar articulo no encontrado'() {
+        given:
+        def org = crearOrganizacion
+        expect:
+        !service.buscarArticulo('nosotros', org)
     }
 }
