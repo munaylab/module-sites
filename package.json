@@ -10,10 +10,12 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "browser-sync": "^2.18.13",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
-    "scrollreveal": "^3.4.0"
+    "lodash": "^4.17.10",
+    "marked": "^0.3.19",
+    "scrollreveal": "^3.4.0",
+    "vue": "^2.5.8"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
