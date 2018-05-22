@@ -2,29 +2,25 @@
   <section :id="id" class="container" :class="sectionClass">
 
 
-    <div v-if="imagen && landing" class="fondo"></div>
+    <div v-if="background" class="fondo"></div>
 
+    <div class="columna-1" :class="imagen ? 'col-md-6' : 'col-md-12'">
+      <h1 class="title-animation">
+        <span v-if="bookmark" class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
+        {{ titulo }}
+      </h1>
+      <div class="content-animation" v-html="markdown"></div>
+    </div>
 
+    <div v-if="imagen" class="columna-2 col-md-6 text-center">
+      <img class="img-responsive image-animation" :src="imagen" />
 
-      <div class="columna-1" :class="imagen ? 'col-md-6' : 'col-md-12'">
-        <h1 class="title-animation">
-          <span v-if="bookmark" class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
-          {{ titulo }}
-        </h1>
-        <div class="content-animation" v-html="markdown"></div>
+      <div class="botones" v-if="linkPrincipal || linkOpcional || linkSecundario">
+        <a v-if="linkOpcional" :href="linkOpcional" v-html="tituloOpcional" class="btn btn-default"></a>
+        <a v-if="linkPrincipal" :href="linkPrincipal" v-html="tituloPrincipal" class="btn btn-default btn-primary"></a>
+        <a v-if="linkSecundario" :href="linkSecundario" v-html="tituloSecundario" class="btn btn-default"></a>
       </div>
-
-      <div v-if="imagen" class="columna-2 col-md-6 text-center">
-        <img class="img-responsive image-animation" :src="imagen" />
-
-        <div class="botones" v-if="linkPrincipal || linkOpcional || linkSecundario">
-          <a v-if="linkOpcional" :href="linkOpcional" v-html="tituloOpcional" class="btn btn-default"></a>
-          <a v-if="linkPrincipal" :href="linkPrincipal" v-html="tituloPrincipal" class="btn btn-default btn-primary"></a>
-          <a v-if="linkSecundario" :href="linkSecundario" v-html="tituloSecundario" class="btn btn-default"></a>
-        </div>
-      </div>
-
-    
+    </div>
 
   </section>
 </template>
@@ -37,6 +33,7 @@ Vue.component('articulo', {
           'titulo',           // titulo
           'contenido',        // contenido markdown format
           'imagen',           // imagen url
+          'background',       // imagen fondo
           'invertir',         // estilo invertido
           'bookmark',         // marca de seccion
           'landing',          // es la landing
