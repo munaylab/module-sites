@@ -1,7 +1,8 @@
 body {
-  font-size: 14px;
-  color: white;
-  background-color: #6F5499;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  color: #2d2d2d;
+  background-color: #ffffff;
 }
 body .navbar-default {
   color: #777;
@@ -15,9 +16,22 @@ body .navbar-default .external-link {
   margin-bottom: 10px;
 }
 body footer {
+  font-size: 16px;
   padding: 20px;
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+body footer .amor {
+  color: #f4425c;
+  font-size: 18px;
+}
+body footer a {
+  color: #ffffff;
+  text-decoration: none;
+}
+body footer a:hover {
+  color: #ffffff;
 }
 .fondo {
   width: 100%;
@@ -34,8 +48,8 @@ body footer {
   right: 0;
   bottom: 0;
   left: 0;
-  background-image: linear-gradient(black, #59437C);
-  opacity: .6;
+  background-image: linear-gradient(#c6c6c6, #ffffff);
+  opacity: .7;
 }
 section {
   display: block;
@@ -49,18 +63,19 @@ section {
   }
 }
 section#section-top {
-  height: 100vh;
-}
-section.inverted {
-  background-color: rgba(0, 0, 0, 0.2);
-}
-section.imagen {
   margin: 0;
   padding: 0;
+  height: 100vh;
 }
-section.imagen .columna-1,
-section.imagen .columna-2 {
+section#section-top .columna-1,
+section#section-top .columna-2 {
   padding-top: 70px;
+}
+section.inverted {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+section p {
+  color: #2d2d2d;
 }
 section .columna-1 {
   padding: 2em;
@@ -96,9 +111,9 @@ section .columna-2 .botones {
   position: fixed;
   cursor: pointer;
   border-radius: 23px;
-  background-color: #6F5499;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 #to-top:hover {
   border: none;
-  background-color: #59437C;
+  background-color: rgba(0, 0, 0, 0.8);
 }

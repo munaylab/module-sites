@@ -1,10 +1,12 @@
-@background: #6F5499;
-@background-dark: #59437C;
+@background: #ffffff;
+@background-dark: #c6c6c6;
+@color: #2d2d2d;
 @screen-sm-min: 768px;
 
 body {
-  font-size: 14px;
-  color: white;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  color: @color;
   background-color: @background;
   .navbar-default {
     color: #777;
@@ -18,9 +20,22 @@ body {
     }
   }
   footer {
+    font-size: 16px;
     padding: 20px;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.5);
+    color: @background;
+    background-color: rgba(0, 0, 0, 0.8);
+    .amor {
+      color: #f4425c;
+      font-size: 18px;
+    }
+    a {
+      color: @background;
+      text-decoration: none;
+      &:hover {
+        color: @background;
+      }
+    }
   }
 }
 
@@ -38,31 +53,32 @@ body {
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: linear-gradient(black, @background-dark);
-    opacity: .6;
+    background-image: linear-gradient(@background-dark, @background);
+    opacity: .7;
   }
 }
 
 section {
+  display: block;
+  overflow: auto;
+  width: 100% !important;
   @media (min-width: @screen-sm-min) {
     height: 100vh;
     padding-top: 70px;
   }
   &#section-top {
-    height: 100vh;
-  }
-  display: block;
-  overflow: auto;
-  width: 100% !important;
-  &.inverted {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-  &.imagen {
     margin: 0;
     padding: 0;
+    height: 100vh;
     .columna-1, .columna-2 {
       padding-top: 70px;
     }
+  }
+  &.inverted {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  p {
+    color: @color;
   }
   .columna-1 {
     padding: 2em;
@@ -99,9 +115,9 @@ section {
   position: fixed;
   cursor: pointer;
   border-radius: 23px;
-  background-color: @background;
+  background-color: rgba(0, 0, 0, 0.6);
   &:hover {
     border: none;
-    background-color: @background-dark;
+    background-color: rgba(0, 0, 0, 0.8);
   }
 }

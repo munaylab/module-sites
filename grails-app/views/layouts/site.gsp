@@ -22,6 +22,7 @@
   <asset:stylesheet src="css/bootstrap.min.css"/>
   <asset:stylesheet src="css/font-awesome.min.css"/>
   <asset:stylesheet src="css/sites.min.css"/>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
   <asset:javascript src="jquery.min.js"/>
   <asset:javascript src="bootstrap.min.js"/>
