@@ -58,7 +58,8 @@ section.imagen {
   margin: 0;
   padding: 0;
 }
-section.imagen .row {
+section.imagen .columna-1,
+section.imagen .columna-2 {
   padding-top: 70px;
 }
 section .columna-1 {
@@ -68,6 +69,7 @@ section .columna-1 h1,
 section .columna-1 h2 {
   margin-bottom: 25px;
 }
+section .columna-1 h1 span.glyphicon,
 section .columna-1 h2 span.glyphicon {
   opacity: .5;
   font-size: 20px;
@@ -75,6 +77,7 @@ section .columna-1 h2 span.glyphicon {
   left: -22px;
   top: 7px;
 }
+section .columna-1 h1:hover span.glyphicon,
 section .columna-1 h2:hover span.glyphicon {
   opacity: 1;
 }

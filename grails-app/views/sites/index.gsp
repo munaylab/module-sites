@@ -30,8 +30,14 @@
       <g:each var="item" in="${menu}">
         <g:if test="${!item.link}">
 
-          <articulo id="${item.nombre.toLowerCase()}" invertir="${style}" titulo="${item.nombre}"
-                    contenido="${item.articulo.contenido}" imagen="${item.articulo?.imagen}"></articulo>
+          <articulo
+                    id="${item.nombre.toLowerCase()}"
+                    titulo="${item.nombre}"
+                    contenido="${item.articulo.contenido}"
+                    imagen="${item.articulo?.imagen}"
+                    bookmark="true"
+                    invertir="${style}">
+          </articulo>
 
           <g:set var="style" value="${!style}"/>
         </g:if>

@@ -4,14 +4,13 @@
 
     <div v-if="imagen && landing" class="fondo"></div>
 
-    <div class="row">
+
 
       <div class="columna-1" :class="imagen ? 'col-md-6' : 'col-md-12'">
-        <h1 v-if="landing" class="title-animation" v-html="titulo"></h1>
-        <h2 v-else class="title-animation">
-          <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
+        <h1 class="title-animation">
+          <span v-if="bookmark" class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
           {{ titulo }}
-        </h2>
+        </h1>
         <div class="content-animation" v-html="markdown"></div>
       </div>
 
@@ -25,7 +24,7 @@
         </div>
       </div>
 
-    </div>
+    
 
   </section>
 </template>
@@ -33,9 +32,21 @@
 <script>
 Vue.component('articulo', {
   template: '#articulo-template',
-  props: ['id', 'titulo', 'contenido', 'imagen', 'invertir', 'landing',
-      'linkOpcional', 'tituloOpcional', 'linkPrincipal', 'tituloPrincipal',
-      'linkSecundario', 'tituloSecundario'],
+  props: [
+          'id',               // ID
+          'titulo',           // titulo
+          'contenido',        // contenido markdown format
+          'imagen',           // imagen url
+          'invertir',         // estilo invertido
+          'bookmark',         // marca de seccion
+          'landing',          // es la landing
+          'linkOpcional',     // link de accion opcional
+          'tituloOpcional',   // titulo de accion opcional
+          'linkPrincipal',    // link de accion principal
+          'tituloPrincipal',  // titulo de accion principal
+          'linkSecundario',   // link de accion secundaria
+          'tituloSecundario'  // titulo de accion secundaria
+        ],
   computed: {
     sectionClass: function() {
       if (this.landing && this.imagen) {
