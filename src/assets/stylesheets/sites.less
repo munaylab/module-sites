@@ -9,7 +9,6 @@ body {
   color: @color;
   background-color: @background;
   .navbar-default {
-    color: #777;
     .navbar-brand {
       font-size: 22px
     }
@@ -53,7 +52,7 @@ body {
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: linear-gradient(@background-dark, @background);
+    background-image: linear-gradient(black, gray);
     opacity: .7;
   }
 }
@@ -67,11 +66,15 @@ section {
     padding-top: 70px;
   }
   &#section-top {
+    color: white;
     margin: 0;
     padding: 0;
     height: 100vh;
     .columna-1, .columna-2 {
       padding-top: 70px;
+    }
+    p {
+      color: white;
     }
   }
   &.inverted {
