@@ -25,7 +25,7 @@
   <body>
     <div id="wrapper">
       <articulo
-          id="section-top"
+          id="top"
           landing="true"
           background="${landing?.imagen}"
           titulo="${landing?.titulo ?: landing.contenido?.titulo}"

@@ -12,12 +12,12 @@
         <span class="icon-bar"></span>
       </button>
       <g:if test="${index}">
-        <a class="navbar-brand page-scroll" href="#section-top">
+        <a class="navbar-brand page-scroll" href="#top">
           <b>${org.nombre}</b>
         </a>
       </g:if>
       <g:else>
-        <a class="navbar-brand page-scroll" href="${home}#section-top">
+        <a class="navbar-brand page-scroll" href="${home}#top">
           <b>${org.nombre}</b>
         </a>
       </g:else>
