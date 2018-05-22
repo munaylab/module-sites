@@ -23,8 +23,9 @@ class BootStrap {
             development {
                 def user = crearUsuario()
                 def org = crearOrganizacion(user)
-                agregarArticulos(org, user)
+                agregarMicrositio(org, user)
                 crearPlanificacion(org)
+                crearArticulos(org, user, ['Sobre Nosotros', 'Primer Proyecto', 'Nuestra Mision'])
             }
         }
     }
@@ -64,7 +65,7 @@ class BootStrap {
         return org
     }
 
-    private void agregarArticulos(Organizacion org, User user) {
+    private void agregarMicrositio(Organizacion org, User user) {
         def landing = new Articulo().with {
             autor           = user
             organizacion    = org
@@ -72,7 +73,7 @@ class BootStrap {
             titulo          = 'Principal'
             palabrasClaves  = 'principal'
             descripcion     = 'descripcion principal'
-            contenido       = '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>'
+            contenido       = "# Titulo Landing\n\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nTexto acerca del articulo **Landing** que contiene informacion muy importante y necesaria para el proyecto\n"
             it
         }.save(failOnError: true)
         def principal = new Principal().with {
@@ -94,11 +95,7 @@ class BootStrap {
         nombreDeArticulos.eachWithIndex { nombreArticulo, i ->
             def article = new Articulo().with {
                 titulo          = nombreArticulo
-                contenido       = """
-                # Titulo ${nombreArticulo}
-
-                Texto acerca del articulo **${nombreArticulo}** que contiene informacion muy importante y necesaria para el proyecto
-                """
+                contenido       = "# Titulo ${nombreArticulo}\n\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nTexto acerca del articulo **${nombreArticulo}** que contiene informacion muy importante y necesaria para el proyecto\n"
                 palabrasClaves  = nombreArticulo.toLowerCase()
                 descripcion     = "descripcion ${nombreArticulo.toLowerCase()}"
                 publicado       = true
@@ -111,6 +108,22 @@ class BootStrap {
                 link            = nombreArticulo == 'Contacto' ? 'mailto:contacto@munaylab.org' : null
                 prioridad       = i
                 articulo        = article
+                organizacion    = org
+                it
+            }.save(failOnError: true)
+        }
+    }
+
+    private void crearArticulos(Organizacion org, User user, nombreDeArticulos) {
+        nombreDeArticulos.each { nombreArticulo ->
+            def article = new Articulo().with {
+                titulo          = nombreArticulo
+                url             = nombreArticulo.replaceAll(" ", "_").toLowerCase()
+                contenido       = "# Titulo ${nombreArticulo}\n\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nTexto acerca del articulo **${nombreArticulo}** que contiene informacion muy importante y necesaria para el proyecto\n"
+                palabrasClaves  = nombreArticulo.toLowerCase()
+                descripcion     = "descripcion ${nombreArticulo.toLowerCase()}"
+                publicado       = true
+                autor           = user
                 organizacion    = org
                 it
             }.save(failOnError: true)
