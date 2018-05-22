@@ -4,10 +4,10 @@
     <meta name="layout" content="site"/>
 
     <g:render template="/components/metatags" model="[
-        'titulo': principal?.titulo ?: principal.contenido?.titulo,
-        'descripcion': principal.contenido?.descripcion,
-        'imagen': principal?.imagen ?: principal.contenido?.imagen,
-        'keywords': principal.contenido?.palabrasClaves,
+        'titulo': landing?.titulo ?: landing.contenido?.titulo,
+        'descripcion': landing.contenido?.descripcion,
+        'imagen': landing?.imagen ?: landing.contenido?.imagen,
+        'keywords': landing.contenido?.palabrasClaves,
         'url': g.createLink(absolute: true, controller: 'org', action: org.nombreURL)]"/>
 
     <title>${org.nombre}</title>
@@ -17,7 +17,7 @@
 
     <g:render template="components/articulo"/>
 
-    <style > .fondo { background-image: url(${principal.imagen}); } </style>
+    <style > .fondo { background-image: url(${landing.imagen}); } </style>
 
     <g:set var="index" value="${true}" />
   </head>
@@ -27,16 +27,16 @@
       <articulo
           id="section-top"
           landing="true"
-          background="${principal?.imagen}"
-          titulo="${principal?.titulo ?: principal.contenido?.titulo}"
-          contenido="${raw(principal.contenido.contenido)}"
-          imagen="${principal.contenido?.imagen}"
-          linkOpcional="${principal?.accionOpcional?.link}"
-          tituloOpcional="${principal?.accionOpcional?.titulo}"
-          linkPrincipal="${principal?.accionPrincipal?.link}"
-          tituloPrincipal="${principal?.accionPrincipal?.titulo}"
-          linkSecundario="${principal?.accionSecundaria?.link}"
-          tituloSecundario="${principal?.accionSecundaria?.titulo}">
+          background="${landing?.imagen}"
+          titulo="${landing?.titulo ?: landing.contenido?.titulo}"
+          contenido="${landing.contenido.contenido}"
+          imagen="${landing.contenido?.imagen}"
+          linkOpcional="${landing?.accionOpcional?.link}"
+          tituloOpcional="${landing?.accionOpcional?.titulo}"
+          linkPrincipal="${landing?.accionPrincipal?.link}"
+          tituloPrincipal="${landing?.accionPrincipal?.titulo}"
+          linkSecundario="${landing?.accionSecundaria?.link}"
+          tituloSecundario="${landing?.accionSecundaria?.titulo}">
       </articulo>
 
 

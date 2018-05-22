@@ -6,7 +6,7 @@ class Accion {
 
     String titulo
     String link
-    static belongsTo = [principal: Principal]
+    static belongsTo = [landing: Landing]
 
     static constraints = {
         titulo nullable: true, blank: false

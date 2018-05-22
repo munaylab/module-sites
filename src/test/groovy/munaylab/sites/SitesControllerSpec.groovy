@@ -5,7 +5,7 @@ import org.munaylab.OrganizacionService
 import org.munaylab.osc.Organizacion
 import org.munaylab.contenido.Articulo
 import org.munaylab.contenido.Menu
-import org.munaylab.contenido.Principal
+import org.munaylab.contenido.Landing
 
 import grails.testing.web.controllers.ControllerUnitTest
 import spock.lang.Specification
@@ -21,14 +21,14 @@ class SitesControllerSpec extends Specification implements ControllerUnitTest<Si
         given:
         params.nombreURL = 'munaylab'
         1 * controller.organizacionService.buscarPorNombre(_) >> { new Organizacion() }
-        1 * controller.contenidoService.getPrincipal(_) >> { new Principal() }
+        1 * controller.contenidoService.getLanding(_) >> { new Landing() }
         1 * controller.contenidoService.getMenuDeOrganizacion(_) >> { [new Menu(), new Menu()] }
         when:
         controller.index()
         then:
         status == 200
         model.org != null
-        model.principal != null
+        model.landing != null
         model.menu.size() == 2
     }
 

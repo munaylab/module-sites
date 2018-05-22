@@ -5,7 +5,7 @@ import org.munaylab.categoria.TipoUsuario
 import org.munaylab.contenido.Accion
 import org.munaylab.contenido.Articulo
 import org.munaylab.contenido.Menu
-import org.munaylab.contenido.Principal
+import org.munaylab.contenido.Landing
 import org.munaylab.osc.Organizacion
 import org.munaylab.osc.EstadoOrganizacion
 import org.munaylab.osc.TipoOrganizacion
@@ -66,27 +66,27 @@ class BootStrap {
     }
 
     private void agregarMicrositio(Organizacion org, User user) {
-        def landing = new Articulo().with {
+        def articuloLanding = new Articulo().with {
             autor           = user
             organizacion    = org
             publicado       = true
-            titulo          = 'Principal'
+            titulo          = 'Landing'
             palabrasClaves  = 'principal'
             descripcion     = 'descripcion principal'
             contenido       = "# Titulo Landing\n\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nTexto acerca del articulo **Landing** que contiene informacion muy importante y necesaria para el proyecto\n"
             it
         }.save(failOnError: true)
-        def principal = new Principal().with {
-            titulo          = 'Titulo Principal'
+        def principal = new Landing().with {
+            titulo          = 'Titulo Landing'
             imagen          = 'http://www.csrindia.org/images/Banner-Social-Surfing.jpg'
-            contenido       = landing
+            contenido       = articuloLanding
             organizacion    = org
             it
         }
         principal.accionPrincipal = new Accion().with {
             titulo      = 'Titulo Accion'
             link        = 'link'
-            principal   = principal
+            landing     = principal
             it
         }
         principal.save(failOnError: true)

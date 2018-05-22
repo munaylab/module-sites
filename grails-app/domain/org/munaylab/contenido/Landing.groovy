@@ -2,7 +2,7 @@ package org.munaylab.contenido
 
 import org.munaylab.osc.Organizacion
 
-class Principal {
+class Landing {
 
     String titulo
     String imagen

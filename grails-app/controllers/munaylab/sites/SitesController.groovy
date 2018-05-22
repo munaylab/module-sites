@@ -2,7 +2,7 @@ package munaylab.sites
 
 import org.munaylab.contenido.Articulo
 import org.munaylab.contenido.Menu
-import org.munaylab.contenido.Principal
+import org.munaylab.contenido.Landing
 import org.munaylab.osc.Organizacion
 
 class SitesController {
@@ -13,9 +13,9 @@ class SitesController {
     def index() {
         Organizacion org = organizacionService.buscarPorNombre(params.nombreURL)
         if (org) {
-            Principal principal = contenidoService.getPrincipal(org)
+            Landing landing = contenidoService.getLanding(org)
             List<Menu> menu = contenidoService.getMenuDeOrganizacion(org)
-            render view: 'index', model: [org: org, principal: principal, menu: menu]
+            render view: 'index', model: [org: org, landing: landing, menu: menu]
         } else {
             render status: 404
         }

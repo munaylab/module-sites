@@ -35,9 +35,9 @@ interface UnitTestBase {
     static final DATOS_MENU_MODIFICADA = [orgId: 1, articuloId: 1,
         nombre: 'nombre modificado', link: 'link_modificado', prioridad: 1]
 
-    static final DATOS_PRINCIPAL_VALIDOS = [orgId: 1, contenidoId: 1, titulo: 'Pagina Principal']
+    static final DATOS_LANDING_VALIDOS = [orgId: 1, contenidoId: 1, titulo: 'Pagina Principal']
 
-    static final DATOS_PRINCIPAL_INVALIDOS = [orgId: 1, contenidoId: 1]
+    static final DATOS_LANDING_INVALIDOS = [orgId: 1, contenidoId: 1]
 
     static final DATOS_PROGRAMA_VALIDOS = [orgId: 1, nombre: 'mi programa',
         imagen: 'imagen/de/mi/programa.jpg', descripcion: 'descripcion del programa']

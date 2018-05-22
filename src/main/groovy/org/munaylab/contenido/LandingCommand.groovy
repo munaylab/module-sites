@@ -50,7 +50,7 @@ class MenuCommand implements Validateable {
     }
 }
 
-class PrincipalCommand implements Validateable {
+class LandingCommand implements Validateable {
 
     Long id
     Long orgId

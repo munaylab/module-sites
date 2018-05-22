@@ -4,8 +4,8 @@ import org.munaylab.contenido.Articulo
 import org.munaylab.contenido.ArticuloCommand
 import org.munaylab.contenido.Menu
 import org.munaylab.contenido.MenuCommand
-import org.munaylab.contenido.Principal
-import org.munaylab.contenido.PrincipalCommand
+import org.munaylab.contenido.Landing
+import org.munaylab.contenido.LandingCommand
 import org.munaylab.osc.Organizacion
 import org.munaylab.user.User
 import org.munaylab.plugins.ArchivoService
@@ -18,7 +18,7 @@ class ContenidoServiceSpec extends Specification
         implements ServiceUnitTest<ContenidoService>, DataTest, UnitTestBase {
 
     void setupSpec() {
-        mockDomains Organizacion, User, Articulo, Menu, Principal
+        mockDomains Organizacion, User, Articulo, Menu, Landing
     }
 
     void setup() {
@@ -275,14 +275,14 @@ class ContenidoServiceSpec extends Specification
         assert menu.articulo.id == command.articuloId
     }
 
-    void 'agregar contenido principal'() {
+    void 'agregar contenido landing'() {
         given:
         def articulo = crearArticulo(DATOS_ARTICULO)
-        def command = new PrincipalCommand(DATOS_PRINCIPAL_VALIDOS)
+        def command = new LandingCommand(DATOS_LANDING_VALIDOS)
         when:
-        def principal = service.actualizarPrincipal(command, articulo.organizacion)
+        def landing = service.actualizarLanding(command, articulo.organizacion)
         then:
-        principal.id != null && Principal.count() == 1
+        landing.id != null && Landing.count() == 1
     }
 
     void 'buscar articulo'() {

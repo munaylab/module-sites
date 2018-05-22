@@ -6,8 +6,8 @@ import org.munaylab.contenido.Articulo
 import org.munaylab.contenido.ArticuloCommand
 import org.munaylab.contenido.Menu
 import org.munaylab.contenido.MenuCommand
-import org.munaylab.contenido.Principal
-import org.munaylab.contenido.PrincipalCommand
+import org.munaylab.contenido.Landing
+import org.munaylab.contenido.LandingCommand
 import org.munaylab.osc.Organizacion
 import org.munaylab.user.User
 import org.munaylab.plugins.Archivo
@@ -158,46 +158,46 @@ class ContenidoService {
     }
 
     @Transactional(readOnly = true)
-    Principal getPrincipal(Organizacion org) {
-        Principal.findByOrganizacion(org)
+    Landing getLanding(Organizacion org) {
+        Landing.findByOrganizacion(org)
     }
 
-    Principal actualizarPrincipal(PrincipalCommand command, Organizacion org) {
-        if (!esUnContenidoPrincipalValidoParaEditar(command, org)) return null
+    Landing actualizarLanding(LandingCommand command, Organizacion org) {
+        if (!esUnaLandingValidaParaEditar(command, org)) return null
 
-        Principal principal = command.id ? modificarPrincipal(command) : crearPrincipal(command, org)
-        if (!principal.hasErrors()) principal.save()
+        Landing landing = command.id ? modificarLanding(command) : crearLanding(command, org)
+        if (!landing.hasErrors()) landing.save()
 
-        principal
+        landing
     }
 
     @Transactional(readOnly = true)
-    private boolean esUnContenidoPrincipalValidoParaEditar(PrincipalCommand command, Organizacion org) {
+    private boolean esUnaLandingValidaParaEditar(LandingCommand command, Organizacion org) {
         return command && command.validate() && org.id == command.orgId
     }
 
     @Transactional(readOnly = true)
-    private Principal modificarPrincipal(PrincipalCommand command) {
-        Principal principal = Principal.get(command.id)
-        if (!principal) {
-            principal = new Principal()
-            principal.errors.rejectValue('id', 'principal.not.found')
+    private Landing modificarLanding(LandingCommand command) {
+        Landing landing = Landing.get(command.id)
+        if (!landing) {
+            landing = new Landing()
+            landing.errors.rejectValue('id', 'landing.not.found')
         } else {
-            principal.titulo = command.titulo
-            principal.accionPrincipal = actualizarAccion(principal.accionPrincipal, command.accionPrincipal)
-            principal.accionSecundaria = actualizarAccion(principal.accionSecundaria, command.accionSecundaria)
-            principal.accionOpcional = actualizarAccion(principal.accionOpcional, command.accionOpcional)
+            landing.titulo = command.titulo
+            landing.accionPrincipal = actualizarAccion(landing.accionPrincipal, command.accionPrincipal)
+            landing.accionSecundaria = actualizarAccion(landing.accionSecundaria, command.accionSecundaria)
+            landing.accionOpcional = actualizarAccion(landing.accionOpcional, command.accionOpcional)
 
-            if (principal.contenido.id != command.contenidoId) {
+            if (landing.contenido.id != command.contenidoId) {
                 Articulo articulo = Articulo.get(command.contenidoId)
                 if (articulo) {
-                    principal.contenido = articulo
+                    landing.contenido = articulo
                 } else {
-                    principal.errors.rejectValue('contenido', 'articulo.not.found')
+                    landing.errors.rejectValue('contenido', 'articulo.not.found')
                 }
             }
         }
-        principal
+        landing
     }
 
     @Transactional(readOnly = true)
@@ -218,27 +218,27 @@ class ContenidoService {
     }
 
     @Transactional(readOnly = true)
-    private Principal crearPrincipal(PrincipalCommand command, Organizacion org) {
+    private Landing crearLanding(LandingCommand command, Organizacion org) {
         Articulo articulo = Articulo.get(command.contenidoId)
-        Principal principal = new Principal(command.properties)
+        Landing landing = new Landing(command.properties)
         if (org && articulo) {
-            principal.organizacion = org
-            principal.contenido = articulo
-            principal.titulo = command.titulo
+            landing.organizacion = org
+            landing.contenido = articulo
+            landing.titulo = command.titulo
             if (command?.accionPrincipal?.id) {
-                principal.accionPrincipal = obtenerAccion(command.accionPrincipal)
+                landing.accionPrincipal = obtenerAccion(command.accionPrincipal)
             }
             if (command?.accionSecundaria?.id) {
-                principal.accionSecundaria = obtenerAccion(command.accionSecundaria)
+                landing.accionSecundaria = obtenerAccion(command.accionSecundaria)
             }
             if (command?.accionOpcional?.id) {
-                principal.accionOpcional = obtenerAccion(command.accionOpcional)
+                landing.accionOpcional = obtenerAccion(command.accionOpcional)
             }
         } else {
-            if (!org) principal.errors.rejectValue('organizacion', 'org.not.found')
-            if (!articulo) principal.errors.rejectValue('contenidoId', 'articulo.not.found')
+            if (!org) landing.errors.rejectValue('organizacion', 'org.not.found')
+            if (!articulo) landing.errors.rejectValue('contenidoId', 'articulo.not.found')
         }
-        principal
+        landing
     }
 
     @Transactional(readOnly = true)
