@@ -2,13 +2,17 @@
 <html lang="en-US">
   <head>
     <meta name="layout" content="site"/>
-    <title><g:message code="label.plataforma.full"/></title>
+
+    <g:render template="/components/metatags" model="['titulo': articulo.titulo,
+        'descripcion': articulo.descripcion, 'imagen': articulo.imagen, 'keywords': articulo.palabrasClaves,
+        'url': g.createLink(absolute: true, controller: 'org', action: org.nombreURL, id: articulo.url)]"/>
+
+    <title>${articulo.titulo} - ${org.nombre}</title>
 
     <asset:javascript src="lodash.min.js"/>
     <asset:javascript src="marked.js"/>
 
     <g:render template="components/articulo"/>
-
   </head>
 
   <body>

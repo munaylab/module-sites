@@ -2,7 +2,15 @@
 <html lang="en-US">
   <head>
     <meta name="layout" content="site"/>
-    <title><g:message code="label.plataforma.full"/></title>
+
+    <g:render template="/components/metatags" model="[
+        'titulo': principal?.titulo ?: principal.contenido?.titulo,
+        'descripcion': principal.contenido?.descripcion,
+        'imagen': principal?.imagen ?: principal.contenido?.imagen,
+        'keywords': principal.contenido?.palabrasClaves,
+        'url': g.createLink(absolute: true, controller: 'org', action: org.nombreURL)]"/>
+
+    <title>${org.nombre}</title>
 
     <asset:javascript src="lodash.min.js"/>
     <asset:javascript src="marked.js"/>
@@ -10,6 +18,8 @@
     <g:render template="components/articulo"/>
 
     <style > .fondo { background-image: url(${principal.imagen}); } </style>
+
+    <g:set var="index" value="${true}" />
   </head>
 
   <body>

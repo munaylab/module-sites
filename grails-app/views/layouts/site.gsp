@@ -9,15 +9,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="robots" content="noindex,follow">
+  <meta name="author" content="team@munaylab.org">
   <link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
   <link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon.png')}">
   <link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">
 
- <!-- TODO add descripcion -->
-  <meta name="description" content="">
-  <meta name="author" content="team@munaylab.org">
-
-  <title>${org?.nombre} <g:message code="label.plataforma.nombre"/></title>
+  <title><g:layoutTitle default="${org?.nombre}"/></title>
 
   <asset:stylesheet src="css/bootstrap.min.css"/>
   <asset:stylesheet src="css/font-awesome.min.css"/>
