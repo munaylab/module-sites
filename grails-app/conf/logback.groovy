@@ -32,5 +32,7 @@ if (Environment.isDevelopmentMode() && targetDir != null) {
         }
     }
     logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
+    logger('org.munaylab', INFO, [ 'FULL_STACKTRACE' ], false)
+    logger('munaylab.sites', INFO, [ 'FULL_STACKTRACE' ], false)
 }
 root(ERROR, ['STDOUT'])
