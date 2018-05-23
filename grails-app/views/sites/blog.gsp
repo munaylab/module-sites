@@ -12,10 +12,7 @@
 
     <title>Blog - ${org.nombre}</title>
 
-    <asset:javascript src="lodash.min.js"/>
-    <asset:javascript src="marked.js"/>
-
-    <g:render template="components/articulo"/>
+    <g:render template="components/articulo-card"/>
   </head>
 
   <body>
@@ -55,29 +52,13 @@
 
         <g:each in="${articulos}" var="articulo">
           <div class="col-sm-6 col-md-4">
-            <div class="card">
-
-              <g:if test="${articulo.imagen}">
-                <div class="card-image">
-                  <img class="img-responsive" src="${articulo.imagen}">
-                </div>
-              </g:if>
-
-              <div class="card-content">
-                <p class="date">${articulo.dateCreated.format('dd MMMM yy')}</p>
-                <h2>${articulo.titulo}</h2>
-                <hr>
-                <p class="text">${articulo.descripcion}</p>
-              </div>
-
-              <div class="card-action">
-                <a href='${g.createLink(url: "blog/${articulo.url}")}'>Continuar leyendo...</a>
-              </div>
-            </div>
+            <articulo-card titulo="${articulo.titulo}" descripcion="${articulo.descripcion}"
+                imagen="${articulo.imagen}" fecha="${articulo.dateCreated.format('dd MMMM yy')}">
+            </articulo-card>
           </div>
         </g:each>
 
-      </div>
+        </div>
       </div>
 
     </div>
