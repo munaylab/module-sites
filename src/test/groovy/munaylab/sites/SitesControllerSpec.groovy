@@ -77,4 +77,28 @@ class SitesControllerSpec extends Specification implements ControllerUnitTest<Si
         status == 404
     }
 
+    void "ultimos articulos"() {
+        given:
+        params.nombreOrganizacion = 'munaylab'
+        1 * controller.organizacionService.buscarPorNombre(_) >> { new Organizacion() }
+        1 * controller.contenidoService.getLanding(_) >> { new Landing() }
+        1 * controller.contenidoService.getMenuDeOrganizacion(_) >> { [new Menu(), new Menu()] }
+        1 * controller.contenidoService.obtenerUltimosArticulos(_) >> { [new Articulo(), new Articulo()] }
+        when:
+        controller.blog()
+        then:
+        status == 200
+        model.org != null
+        model.landing != null
+        model.menu.size() == 2
+        model.articulos.size() == 2
+    }
+    void "blog no encontrado"() {
+        given:
+        1 * controller.organizacionService.buscarPorNombre(_) >> { null }
+        when:
+        controller.blog()
+        then:
+        status == 404
+    }
 }

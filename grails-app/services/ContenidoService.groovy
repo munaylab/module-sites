@@ -258,4 +258,12 @@ class ContenidoService {
 
         Articulo.findPublicadoByUrlAndOrganizacion(urlDeArticulo, org)
     }
+
+    @Transactional(readOnly = true)
+    List<Articulo> obtenerUltimosArticulos(Organizacion org) {
+        if (!org) return null
+
+        Articulo.findAllPublicadoByOrganizacion(org, [sort: 'dateCreated', order: 'desc', max: 10])
+    }
+
 }

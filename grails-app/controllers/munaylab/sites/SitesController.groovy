@@ -21,6 +21,18 @@ class SitesController {
         }
     }
 
+    def blog() {
+        Organizacion org = organizacionService.buscarPorNombre(params.nombreOrganizacion)
+        if (org) {
+            Landing landing = contenidoService.getLanding(org)
+            List<Menu> menu = contenidoService.getMenuDeOrganizacion(org)
+            List<Articulo> articulos = contenidoService.obtenerUltimosArticulos(org)
+            render view: 'blog', model: [org: org, menu: menu, landing: landing, articulos: articulos]
+        } else {
+            render status: 404
+        }
+    }
+
     def articulo() {
         Organizacion org = organizacionService.buscarPorNombre(params.nombreOrganizacion)
         if (org) {

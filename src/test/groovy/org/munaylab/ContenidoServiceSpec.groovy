@@ -299,4 +299,21 @@ class ContenidoServiceSpec extends Specification
         expect:
         !service.buscarArticulo('nosotros', org)
     }
+    void 'obtener ultimos articulos'() {
+        given:
+        def org = crearOrganizacion
+        def datos = DATOS_ARTICULO.clone() << [autor: crearUsuario, organizacion: org]
+        10.times {
+            datos.url = "url_$it"
+            datos.titulo = "Titulo $it"
+            datos.publicado = true
+            new Articulo(datos).save(flush: true, failOnError: true)
+        }
+        expect:
+        service.obtenerUltimosArticulos(org).size() == 10
+    }
+    void 'obtener ultimos articulos vacios'() {
+        service.obtenerUltimosArticulos(org).isEmpty()
+    }
+
 }
