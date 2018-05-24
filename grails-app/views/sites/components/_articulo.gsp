@@ -1,8 +1,7 @@
 <template id="articulo-template">
   <section :id="id" class="container" :class="sectionClass">
 
-
-    <div v-if="background" class="fondo"></div>
+    <div v-if="background" ref="background" class="fondo"></div>
 
     <div class="columna-1" :class="imagen ? 'col-md-6' : 'col-md-12'">
       <h1 class="title-animation">
@@ -13,7 +12,7 @@
     </div>
 
     <div v-if="imagen" class="columna-2 col-md-6 text-center">
-      <img class="img-responsive image-animation" :src="imagen" />
+      <img class="img-rounded img-responsive image-animation" :src="imagen" />
 
       <div class="botones" v-if="linkPrincipal || linkOpcional || linkSecundario">
         <a v-if="linkOpcional" :href="linkOpcional" v-html="tituloOpcional" class="btn btn-default"></a>
@@ -44,6 +43,12 @@ Vue.component('articulo', {
           'linkSecundario',   // link de accion secundaria
           'tituloSecundario'  // titulo de accion secundaria
         ],
+  mounted: function() {
+    let background = this.$refs.background;
+    if (background && this.background) {
+      background.style.backgroundImage = "url('" + this.background + "')";
+    }
+  },
   computed: {
     sectionClass: function() {
       if (this.landing && this.imagen) {

@@ -166,7 +166,13 @@ class ContenidoService {
         if (!esUnaLandingValidaParaEditar(command, org)) return null
 
         Landing landing = command.id ? modificarLanding(command) : crearLanding(command, org)
-        if (!landing.hasErrors()) landing.save()
+        if (!landing.hasErrors()) {
+            if (command.imagen.accion != 'none') {
+                Archivo imagen = archivoService.actualizarArchivo(command.imagen)
+                landing.imagen = imagen
+            }
+            landing.save()
+        }
 
         landing
     }
@@ -184,6 +190,7 @@ class ContenidoService {
             landing.errors.rejectValue('id', 'landing.not.found')
         } else {
             landing.titulo = command.titulo
+            landing.imagenLink = command.imagenLink
             landing.accionPrincipal = actualizarAccion(landing.accionPrincipal, command.accionPrincipal)
             landing.accionSecundaria = actualizarAccion(landing.accionSecundaria, command.accionSecundaria)
             landing.accionOpcional = actualizarAccion(landing.accionOpcional, command.accionOpcional)
@@ -225,6 +232,7 @@ class ContenidoService {
             landing.organizacion = org
             landing.contenido = articulo
             landing.titulo = command.titulo
+            landing.imagenLink = command.imagenLink
             if (command?.accionPrincipal?.id) {
                 landing.accionPrincipal = obtenerAccion(command.accionPrincipal)
             }

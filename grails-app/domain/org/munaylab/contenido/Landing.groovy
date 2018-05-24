@@ -1,11 +1,13 @@
 package org.munaylab.contenido
 
 import org.munaylab.osc.Organizacion
+import org.munaylab.plugins.Archivo
 
 class Landing {
 
     String titulo
-    String imagen
+    Archivo imagen
+    String imagenLink
     Articulo contenido
     static belongsTo = [organizacion: Organizacion]
     Accion accionPrincipal
@@ -14,7 +16,8 @@ class Landing {
 
     static constraints = {
         titulo nullable: true, blank: false
-        imagen nullable: true, blank: false
+        imagen nullable: true
+        imagenLink nullable: true
         contenido nullable: false
         accionPrincipal nullable: true
         accionSecundaria nullable: true

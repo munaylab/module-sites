@@ -56,6 +56,8 @@ class LandingCommand implements Validateable {
     Long orgId
     Long contenidoId
     String titulo
+    ArchivoCommand imagen
+    String imagenLink
     AccionCommand accionPrincipal
     AccionCommand accionSecundaria
     AccionCommand accionOpcional
@@ -63,6 +65,8 @@ class LandingCommand implements Validateable {
     static constraints = {
         id nullable: true
         titulo size: 5..100
+        imagen nullable: true
+        imagenLink nullable: true
         accionPrincipal nullable: true
         accionSecundaria nullable: true
         accionOpcional nullable: true

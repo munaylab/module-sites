@@ -8,7 +8,7 @@
         'descripcion': landing.contenido?.descripcion,
         'keywords': landing.contenido?.palabrasClaves,
         'url': g.createLink(absolute: true, controller: 'org', action: org.nombreURL),
-        'imagen': landing?.imagen ?: landing.articulo?.imagen]"/>
+        'imagen': landing?.imagen ?: landing.contenido?.imagen]"/>
 
     <title>Blog - ${org.nombre}</title>
 

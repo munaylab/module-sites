@@ -16,9 +16,6 @@
     <asset:javascript src="marked.js"/>
 
     <g:render template="components/articulo"/>
-
-    <style > .fondo { background-image: url(${landing.imagen}); } </style>
-
     <g:set var="index" value="${true}" />
   </head>
 
@@ -27,7 +24,7 @@
       <articulo
           id="top"
           landing="true"
-          background="${landing?.imagen}"
+          background="${g.fileLink(file: landing?.imagen)}"
           titulo="${landing?.titulo ?: landing.contenido?.titulo}"
           contenido="${landing.contenido.contenido}"
           imagen="${landing.contenido?.imagen}"

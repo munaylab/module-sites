@@ -81,7 +81,7 @@ class BootStrap {
         }.save(failOnError: true)
         def principal = new Landing().with {
             titulo          = 'Titulo Landing'
-            imagen          = 'http://www.csrindia.org/images/Banner-Social-Surfing.jpg'
+            imagen          = archivo
             contenido       = articuloLanding
             organizacion    = org
             it
@@ -118,14 +118,6 @@ class BootStrap {
     }
 
     private void crearArticulos(Organizacion org, User user, nombreDeArticulos) {
-        def resource = this.class.getResource("/mobile.jpeg")
-        def file = new File(resource.toURI())
-        def archivo = new Archivo().with {
-            nombre          = file.name
-            fileBytes       = file.bytes
-            fileContentType = 'image/jpeg'
-            it
-        }
         nombreDeArticulos.each { nombreArticulo ->
             def article = new Articulo().with {
                 titulo          = nombreArticulo
@@ -139,6 +131,17 @@ class BootStrap {
                 organizacion    = org
                 it
             }.save(failOnError: true)
+        }
+    }
+
+    private Archivo getArchivo() {
+        def resource = this.class.getResource("/mobile.jpeg")
+        def file = new File(resource.toURI())
+        new Archivo().with {
+            nombre          = file.name
+            fileBytes       = file.bytes
+            fileContentType = 'image/jpeg'
+            it
         }
     }
 
