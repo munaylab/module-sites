@@ -15,6 +15,7 @@ import org.munaylab.planificacion.Proyecto
 import org.munaylab.planificacion.Programa
 import org.munaylab.security.Role
 import org.munaylab.security.UserRole
+import org.munaylab.plugins.Archivo
 
 class BootStrap {
 
@@ -25,7 +26,9 @@ class BootStrap {
                 def org = crearOrganizacion(user)
                 agregarMicrositio(org, user)
                 crearPlanificacion(org)
-                crearArticulos(org, user, ['Sobre Nosotros', 'Primer Proyecto', 'Nuestra Mision'])
+                def articulos = []
+                15.times { articulos << "Articulo N$it" }
+                crearArticulos(org, user, articulos)
             }
         }
     }
@@ -69,7 +72,7 @@ class BootStrap {
         def articuloLanding = new Articulo().with {
             autor           = user
             organizacion    = org
-            publicado       = true
+            publicado       = false
             titulo          = 'Landing'
             palabrasClaves  = 'principal'
             descripcion     = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
@@ -98,14 +101,14 @@ class BootStrap {
                 contenido       = "# Titulo ${nombreArticulo}\n\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nTexto acerca del articulo **${nombreArticulo}** que contiene informacion muy importante y necesaria para el proyecto\n"
                 palabrasClaves  = nombreArticulo.toLowerCase()
                 descripcion     = "${nombreArticulo.toLowerCase()} Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-                publicado       = true
+                publicado       = false
                 autor           = user
                 organizacion    = org
                 it
             }.save(failOnError: true)
             def menu = new Menu().with {
                 nombre          = nombreArticulo
-                link            = nombreArticulo == 'Contacto' ? 'mailto:contacto@munaylab.org' : null
+                link            = nombreArticulo == 'Contacto' ? "${org.nombreURL}/blog/" : null
                 prioridad       = i
                 articulo        = article
                 organizacion    = org
@@ -115,6 +118,14 @@ class BootStrap {
     }
 
     private void crearArticulos(Organizacion org, User user, nombreDeArticulos) {
+        def resource = this.class.getResource("/mobile.jpeg")
+        def file = new File(resource.toURI())
+        def archivo = new Archivo().with {
+            nombre          = file.name
+            fileBytes       = file.bytes
+            fileContentType = 'image/jpeg'
+            it
+        }
         nombreDeArticulos.each { nombreArticulo ->
             def article = new Articulo().with {
                 titulo          = nombreArticulo
@@ -123,6 +134,7 @@ class BootStrap {
                 palabrasClaves  = nombreArticulo.toLowerCase()
                 descripcion     = "${nombreArticulo.toLowerCase()} Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
                 publicado       = true
+                imagen          = archivo
                 autor           = user
                 organizacion    = org
                 it
