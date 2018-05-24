@@ -18,7 +18,9 @@
   <body>
     <div id="wrapper">
       <articulo id="${articulo.titulo.toLowerCase()}" titulo="${articulo.titulo}"
-                contenido="${articulo.contenido}" imagen="${articulo?.imagen}"></articulo>
+                contenido="${articulo.contenido}"
+                imagen="${g.createLink(controller: 'archivo', action: 'show', id: articulo?.imagen?.id)}">
+      </articulo>
     </div>
 
     <a id="to-top" href="#" class="btn btn-primary btn-lg" role="button">
