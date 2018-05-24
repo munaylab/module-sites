@@ -191,9 +191,10 @@ class ContenidoService {
         } else {
             landing.titulo = command.titulo
             landing.imagenLink = command.imagenLink
-            landing.accionPrincipal = actualizarAccion(landing.accionPrincipal, command.accionPrincipal)
-            landing.accionSecundaria = actualizarAccion(landing.accionSecundaria, command.accionSecundaria)
-            landing.accionOpcional = actualizarAccion(landing.accionOpcional, command.accionOpcional)
+            // TODO implementacion guardar y nuevo
+            // landing.accionPrincipal = actualizarAccion(landing.accionPrincipal, command.accionPrincipal)
+            // landing.accionSecundaria = actualizarAccion(landing.accionSecundaria, command.accionSecundaria)
+            // landing.accionOpcional = actualizarAccion(landing.accionOpcional, command.accionOpcional)
 
             if (landing.contenido.id != command.contenidoId) {
                 Articulo articulo = Articulo.get(command.contenidoId)
