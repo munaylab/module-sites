@@ -27,7 +27,7 @@
           background="${g.fileLink(file: landing?.imagen)}"
           titulo="${landing?.titulo ?: landing.contenido?.titulo}"
           contenido="${landing.contenido.contenido}"
-          imagen="${landing.contenido?.imagen}"
+          imagen="${g.fileLink(file: landing.contenido?.imagen)}"
           linkOpcional="${landing?.accionOpcional?.link}"
           tituloOpcional="${landing?.accionOpcional?.titulo}"
           linkPrincipal="${landing?.accionPrincipal?.link}"
@@ -45,7 +45,7 @@
               id="${item.nombre.toLowerCase()}"
               titulo="${item.nombre}"
               contenido="${item.articulo.contenido}"
-              imagen="${item.articulo?.imagen}"
+              imagen="${g.fileLink(file: item.articulo?.imagen)}"
               bookmark="true"
               invertir="${style}">
           </articulo>
