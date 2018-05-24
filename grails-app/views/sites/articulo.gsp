@@ -18,8 +18,7 @@
   <body>
     <div id="wrapper">
       <articulo id="${articulo.titulo.toLowerCase()}" titulo="${articulo.titulo}"
-                contenido="${articulo.contenido}"
-                imagen="${g.createLink(controller: 'archivo', action: 'show', id: articulo?.imagen?.id)}">
+                contenido="${articulo.contenido}" imagen="${g.fileLink(file: articulo?.imagen)}">
       </articulo>
     </div>
 

@@ -8,9 +8,7 @@
         'descripcion': landing.contenido?.descripcion,
         'keywords': landing.contenido?.palabrasClaves,
         'url': g.createLink(absolute: true, controller: 'org', action: org.nombreURL),
-        'imagen': landing?.imagen
-            ? landing.imagen
-            : g.createLink(controller: 'archivo', action: 'show', id: landing.ariculo.imagen.id)]"/>
+        'imagen': landing?.imagen ?: landing.articulo?.imagen]"/>
 
     <title>Blog - ${org.nombre}</title>
 
@@ -33,8 +31,7 @@
               <div class="row">
                 <g:if test="${articulo.imagen}">
                   <div class="col-xs-4 imagen-item">
-                    <img class="img-responsive"
-                        src="${g.createLink(controller: 'archivo', action: 'show', id: articulo?.imagen?.id)}">
+                    <img class="img-responsive" src="${g.fileLink(file: articulo?.imagen)}">
                   </div>
                   <div class="col-xs-8 text-item">
                     <p class="list-group-item-heading">${articulo.titulo}</p>
@@ -65,7 +62,7 @@
             <articulo-card titulo="${articulo.titulo}" descripcion="${articulo.descripcion}"
                 fecha="${articulo.dateCreated.format('dd MMMM yy')}"
                 link='${g.createLink(url: "blog/${articulo.url ?: ''}")}'
-                imagen="${g.createLink(controller: 'archivo', action: 'show', id: articulo.imagen?.id)}">
+                imagen="${g.fileLink(file: articulo.imagen)}">
             </articulo-card>
           </div>
         </g:each>

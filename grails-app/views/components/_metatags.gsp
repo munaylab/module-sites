@@ -10,7 +10,7 @@
 </g:if>
 <%-- URL de la imagen que aparece cuando alguien comparte el contenido en Facebook --%>
 <g:if test="${imagen}">
-  <meta property="og:image" content="${imagen}" />
+  <meta property="og:image" content="${g.fileLink(file: imagen)}" />
 </g:if>
 <%-- Tipo de elementos multimedia del contenido --%>
 <meta property="og:type" content="article" />
