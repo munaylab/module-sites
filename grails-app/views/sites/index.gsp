@@ -24,7 +24,7 @@
       <articulo
           id="top"
           landing="true"
-          background="${g.fileLink(file: landing?.imagen)}"
+          background="${landing?.imagenLink ?: g.fileLink(file: landing?.imagen)}"
           titulo="${landing?.titulo ?: landing.contenido?.titulo}"
           contenido="${landing.contenido.contenido}"
           imagen="${g.fileLink(file: landing.contenido?.imagen)}"
@@ -35,7 +35,6 @@
           linkSecundario="${landing?.accionSecundaria?.link}"
           tituloSecundario="${landing?.accionSecundaria?.titulo}">
       </articulo>
-
 
       <g:set var="style" value="${true}"/>
       <g:each var="item" in="${menu}">

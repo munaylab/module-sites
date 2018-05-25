@@ -51,7 +51,7 @@ Vue.component('articulo', {
   },
   computed: {
     sectionClass: function() {
-      if (this.landing && this.imagen) {
+      if (this.landing && this.background) {
         return 'imagen';
       } else if (this.invertir) {
         return this.invertir === 'true' ? 'inverted' : '';
