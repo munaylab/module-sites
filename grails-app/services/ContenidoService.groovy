@@ -167,7 +167,7 @@ class ContenidoService {
 
         Landing landing = command.id ? modificarLanding(command) : crearLanding(command, org)
         if (!landing.hasErrors()) {
-            if (command.imagen.accion != 'none') {
+            if (command?.imagen?.accion != 'none') {
                 Archivo imagen = archivoService.actualizarArchivo(command.imagen)
                 landing.imagen = imagen
             }
