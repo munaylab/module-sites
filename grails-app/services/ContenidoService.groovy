@@ -59,6 +59,7 @@ class ContenidoService {
             articulo.errors.rejectValue('id', 'articulo.not.found')
         } else {
             articulo.titulo = command.titulo
+            articulo.url = command.url
             articulo.contenido = command.contenido
             articulo.descripcion = command.descripcion
             articulo.palabrasClaves = command.palabrasClaves
@@ -72,6 +73,7 @@ class ContenidoService {
         User autor = User.get(command.autorId)
         Articulo articulo = new Articulo().with {
             titulo          = command.titulo
+            url             = command.url
             contenido       = command.contenido
             descripcion     = command.descripcion
             palabrasClaves  = command.palabrasClaves

@@ -9,6 +9,7 @@ class ArticuloCommand implements Validateable {
     Long id
     Long orgId
     Long autorId
+    String url
     String titulo
     String contenido
     ArchivoCommand imagen
@@ -20,6 +21,7 @@ class ArticuloCommand implements Validateable {
         id nullable: true
         orgId nullable: true
         autorId nullable: true
+        url nullable: true, size: 5..500
         titulo size: 5..100
         contenido size: 10..5000
         imagen nullable: true
