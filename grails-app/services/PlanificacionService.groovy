@@ -55,7 +55,6 @@ class PlanificacionService {
 
         Programa programa = command.id ? Programa.get(command.id) : null
         if (programa) {
-            programa.imagen = command.imagen
             programa.nombre = command.nombre
             programa.descripcion = command.descripcion
             programa.save()
@@ -101,7 +100,6 @@ class PlanificacionService {
 
         Proyecto proyecto = command.id ? Proyecto.get(command.id) : null
         if (proyecto) {
-            proyecto.imagen = command.imagen
             proyecto.nombre = command.nombre
             proyecto.descripcion = command.descripcion
             proyecto.save()
@@ -153,7 +151,6 @@ class PlanificacionService {
 
         Actividad actividad = command.id ? Actividad.get(command.id) : null
         if (actividad) {
-            actividad.imagen = command.imagen
             actividad.nombre = command.nombre
             actividad.descripcion = command.descripcion
             actividad.save()

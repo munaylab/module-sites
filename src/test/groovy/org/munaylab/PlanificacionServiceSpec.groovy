@@ -84,9 +84,7 @@ class PlanificacionServiceSpec extends Specification
         new Programa(datos << [organizacion: org]).save(flush: true)
     }
     void comprobarDatosProgramaActualizados(Programa programa, ProgramaCommand command) {
-        assert (programa.imagen == command.imagen && programa.nombre == command.nombre
-                && programa.descripcion == command.descripcion)
-        assert Programa.get(programa.id).imagen == command.imagen
+        assert (programa.nombre == command.nombre && programa.descripcion == command.descripcion)
         assert Programa.get(programa.id).nombre == command.nombre
         assert Programa.get(programa.id).descripcion == command.descripcion
     }
@@ -149,9 +147,7 @@ class PlanificacionServiceSpec extends Specification
         new Proyecto(datos << [programa: crearPrograma(DATOS_PROGRAMA)]).save(flush: true)
     }
     void comprobarDatosProyectoActualizados(Proyecto proyecto, ProyectoCommand command) {
-        assert (proyecto.imagen == command.imagen && proyecto.nombre == command.nombre
-                && proyecto.descripcion == command.descripcion)
-        assert Proyecto.get(proyecto.id).imagen == command.imagen
+        assert (proyecto.nombre == command.nombre && proyecto.descripcion == command.descripcion)
         assert Proyecto.get(proyecto.id).nombre == command.nombre
         assert Proyecto.get(proyecto.id).descripcion == command.descripcion
     }
@@ -208,9 +204,7 @@ class PlanificacionServiceSpec extends Specification
         new Actividad(datos << [proyecto: crearProyecto(DATOS_PROYECTO)]).save(flush: true)
     }
     void comprobarDatosActividadActualizados(Actividad actividad, ActividadCommand command) {
-        assert (actividad.imagen == command.imagen && actividad.nombre == command.nombre
-                && actividad.descripcion == command.descripcion)
-        assert Actividad.get(actividad.id).imagen == command.imagen
+        assert (actividad.nombre == command.nombre && actividad.descripcion == command.descripcion)
         assert Actividad.get(actividad.id).nombre == command.nombre
         assert Actividad.get(actividad.id).descripcion == command.descripcion
     }
