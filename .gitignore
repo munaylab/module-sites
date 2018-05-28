@@ -15,4 +15,4 @@ grails-wrapper.jar
 grailsw*
 node_modules/
 grails-app/assets/stylesheets/css/sites.min.css
-src/assets/stylesheets/sites.css
+src/assets/stylesheets/*.css
