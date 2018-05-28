@@ -72,10 +72,6 @@
 
     </div>
 
-    <a id="to-top" href="#" class="btn btn-primary btn-lg" role="button">
-      <span class="glyphicon glyphicon-chevron-up"></span>
-    </a>
-
   </body>
 
 </html>

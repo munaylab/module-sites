@@ -37,6 +37,10 @@
 
   <g:layoutBody/>
 
+  <a id="to-top" href="#" class="btn btn-primary btn-lg" role="button">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+  </a>
+
   <g:render template="/components/footer" plugin="munaylab-sites"/>
 
   <asset:javascript src="sites.js" />
