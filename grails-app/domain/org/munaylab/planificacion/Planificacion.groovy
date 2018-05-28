@@ -18,7 +18,7 @@ class Planificacion {
     static constraints = {
         nombre size: 5..500
         descripcion size: 5..1000
-        contenido blank: false
+        contenido size: 10..5000
         fechaDeInicio nullable: true, validator: { val, obj ->
             if (val && val < new Date()) return 'menorFechaActual'
         }
