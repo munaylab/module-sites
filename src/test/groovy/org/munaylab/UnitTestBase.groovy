@@ -40,31 +40,31 @@ interface UnitTestBase {
     static final DATOS_LANDING_INVALIDOS = [orgId: 1, contenidoId: 1]
 
     static final DATOS_PROGRAMA_VALIDOS = [orgId: 1, nombre: 'mi programa',
-        imagen: 'imagen/de/mi/programa.jpg', descripcion: 'descripcion del programa']
+        descripcion: 'descripcion del programa', contenido: '# Contenido de mi programa']
 
-    static final DATOS_PROGRAMA_INVALIDOS = [orgId: 2, descripcion: 'descripcion del programa',
-        imagen: 'imagen/de/mi/programa.jpg']
+    static final DATOS_PROGRAMA_INVALIDOS = [orgId: 2, descripcion: 'descripcion del programa']
 
-    static final DATOS_PROGRAMA = [nombre: 'Innovaciones Sociales', imagen: 'programa/innovacion',
-        descripcion: 'Brindar innovaciones a las osc.', publicado: true]
+    static final DATOS_PROGRAMA = [nombre: 'Innovaciones Sociales', publicado: true,
+        descripcion: 'Brindar innovaciones a las osc.', contenido: '# Contenido de mi programa']
 
     static final DATOS_PROYECTO_VALIDOS = [orgId: 1, programaId: 1, nombre: 'mi proyecto',
-        imagen: 'imagen/de/mi/proyecto.jpg', descripcion: 'descripcion del proyecto']
+        descripcion: 'descripcion del proyecto', contenido: '# Contenido de mi proyecto']
 
-    static final DATOS_PROYECTO_INVALIDOS = [orgId: 2, programaId: 1,
-        imagen: 'imagen/de/mi/proyecto.jpg', descripcion: 'descripcion del proyecto']
+    static final DATOS_PROYECTO_INVALIDOS = [orgId: 2, programaId: 1, descripcion: 'descripcion del proyecto']
 
-    static final DATOS_PROYECTO = [nombre: 'Taller de Innovaciones', imagen: 'proyecto/programa/innovacion',
-        descripcion: 'Taller donde se exponen innovaciones para la sociedad', publicado: true]
+    static final DATOS_PROYECTO = [nombre: 'Taller de Innovaciones', publicado: true,
+        descripcion: 'Taller donde se exponen innovaciones para la sociedad',
+        contenido: '# Contenido de mi proyecto']
 
     static final DATOS_ACTIVIDAD_VALIDOS = [orgId: 1, nombre: 'mi actividad',
-        imagen: 'imagen/de/mi/actividad.jpg', descripcion: 'descripcion del actividad']
+        descripcion: 'descripcion del actividad',
+        contenido: '# Contenido de mi actividad']
 
-    static final DATOS_ACTIVIDAD_INVALIDOS = [orgId: 1,
-        imagen: 'imagen/de/mi/actividad.jpg', descripcion: 'descripcion del actividad']
+    static final DATOS_ACTIVIDAD_INVALIDOS = [orgId: 1, descripcion: 'descripcion del actividad']
 
-    static final DATOS_ACTIVIDAD = [nombre: 'Presentacion Innovacion', imagen: 'proyecto/actividad/innovacion',
-        descripcion: 'Presentacion de innovaciones realizadas en el taller', publicado: true]
+    static final DATOS_ACTIVIDAD = [nombre: 'Presentacion Innovacion', publicado: true,
+        descripcion: 'Presentacion de innovaciones realizadas en el taller',
+        contenido: '# Contenido de mi actividad']
 
     static final DATOS_DOMICILIO_VALIDOS = [id: 1, calle: 'Reconquista', numero: '1125', barrio: 'Centro',
         localidad: 'Cuidad Autonoma de Buenos Aires', provincia: 'Buenos Aires']

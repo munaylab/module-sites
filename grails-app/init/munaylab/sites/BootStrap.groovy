@@ -148,24 +148,24 @@ class BootStrap {
     private void crearPlanificacion(Organizacion org) {
         def programa = new Programa().with {
             nombre          = 'Innovaciones Sociales'
-            imagen          = 'programa/innovacion'
             descripcion     = 'Brindar innovaciones a las osc.'
+            contenido       = '# Brindar innovaciones a las osc.'
             publicado       = true
             organizacion    = org
             it
         }
         def proyecto = new Proyecto().with {
             nombre          = 'Taller de Innovaciones'
-            imagen          = 'proyecto/innovacion'
             descripcion     = 'Taller donde se exponen innovaciones para la sociedad.'
+            contenido       = '# Taller donde se exponen innovaciones para la sociedad.'
             publicado       = true
             organizacion    = org
             it
         }
         def actividad = new Actividad().with {
             nombre          = 'Presentacion Innovacion'
-            imagen          = 'actividad/innovacion'
             descripcion     = 'Presentacion de innovaciones realizadas en el taller.'
+            contenido       = '# Presentacion de innovaciones realizadas en el taller.'
             publicado       = true
             organizacion    = org
             proyecto        = proyecto

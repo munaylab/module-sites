@@ -35,15 +35,6 @@ class PlanificacionService {
         Programa.findAllByOrganizacion(org)
     }
 
-    def actualizarPlanificacion(PlanificacionCommand command, Organizacion org) {
-        if (command && command.validate() && org) {
-            if (command in ProgramaCommand) return actualizarPrograma(command, org)
-            if (command in ProyectoCommand) return actualizarProyecto(command, org)
-            if (command in ActividadCommand) return actualizarActividad(command, org)
-        }
-        return null
-    }
-
     Programa actualizarPrograma(ProgramaCommand command, Organizacion org) {
         if (!command.validate()) return null
 
