@@ -3,12 +3,13 @@
   <head>
     <meta name="layout" content="site"/>
 
+    <g:set var="link" value="${g.createLink(absolute: true, controller: 'org', action: org.nombreURL)}" />
     <g:render template="/components/metatags" model="[
         'titulo': landing?.titulo ?: landing.contenido?.titulo,
         'descripcion': landing.contenido?.descripcion,
         'imagen': landing?.imagen ?: landing.contenido?.imagen,
         'keywords': landing.contenido?.palabrasClaves,
-        'url': g.createLink(absolute: true, controller: 'org', action: org.nombreURL)]"/>
+        'url': link]"/>
 
     <title>${org.nombre}</title>
 
@@ -16,7 +17,7 @@
     <asset:javascript src="marked.js"/>
 
     <g:render template="components/articulo"/>
-    <g:set var="index" value="${true}" />
+    <g:render template="components/facebook/comments"/>
   </head>
 
   <body>
@@ -53,6 +54,7 @@
         </g:if>
       </g:each>
 
+      <facebook-comments link="${link}"></facebook-comments>
     </div>
 
   </body>
