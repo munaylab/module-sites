@@ -32,7 +32,7 @@
 </head>
 
 <body>
-
+  <g:render template="/components/facebook" plugin="munaylab-sites"/>
   <g:menu org="${org}" />
 
   <g:layoutBody/>

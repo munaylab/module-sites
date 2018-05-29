@@ -1,4 +1,7 @@
 ---
+facebookAppId: 774398902948913
+
+---
 grails:
     profile: web-plugin
     codegen:
