@@ -1,5 +1,3 @@
-<g:set var="home" value="${g.createLink(controller: 'org', action: org.nombreURL)}" />
-
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
 
@@ -11,17 +9,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <g:if test="${index}">
-        <a class="navbar-brand page-scroll" href="#top">
-          <b>${org.nombre}</b>
-        </a>
-      </g:if>
-      <g:else>
-        <a class="navbar-brand page-scroll" href="${home}#top">
-          <b>${org.nombre}</b>
-        </a>
-      </g:else>
-
+      <a class="navbar-brand page-scroll" href="${homeLink}#top">
+        <b>${nombre}</b>
+      </a>
     </div>
 
     <div class="collapse navbar-collapse" id="navbar-collapse">
@@ -32,14 +22,7 @@
               <a class="external-link btn btn-default navbar-btn" href="${item.link}">${item.nombre}</a>
             </g:if>
             <g:else>
-              <g:if test="${index}">
-                <a class="page-scroll"
-                    href="#${item.nombre.toLowerCase()}">${item.nombre}</a>
-              </g:if>
-              <g:else>
-                <a class="page-scroll"
-                    href="${home}#${item.nombre.toLowerCase()}">${item.nombre}</a>
-              </g:else>
+              <a class="page-scroll" href="${homeLink}#${item.nombre.toLowerCase()}">${item.nombre}</a>
             </g:else>
           </li>
         </g:each>

@@ -33,7 +33,7 @@
 
 <body>
 
-  <g:render template="/components/nav" plugin="munaylab-sites"/>
+  <g:menu org="${org}" />
 
   <g:layoutBody/>
 
