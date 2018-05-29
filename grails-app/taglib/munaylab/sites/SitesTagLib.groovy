@@ -4,10 +4,10 @@ import org.munaylab.contenido.Menu
 import org.munaylab.osc.Organizacion
 
 class SitesTagLib {
-    static defaultEncodeAs = [taglib:'raw']
-    //static encodeAsForTags = [tagName: [taglib:'html'], otherTagName: [taglib:'none']]
 
     def contenidoService
+
+    static encodeAsForTags = [menu: [taglib:'raw'], articuloLink: [taglib:'html']]
 
     def menu = { attrs, body ->
         if (attrs.org) {
@@ -17,4 +17,10 @@ class SitesTagLib {
             out << render(template: "/components/nav", model: model)
         }
     }
+
+    def articuloLink = { attrs, body ->
+        String link = g.createLink(absolute: true, controller: 'org', action: attrs.nombre)
+        out << "$link/blog/$attrs.articulo"
+    }
+
 }
