@@ -27,7 +27,7 @@
             </h4>
           </div>
           <g:each in="${articulos}" var="articulo">
-            <a class="list-group-item" href='${g.createLink(url: "blog/${articulo.url ?: ''}")}'>
+            <a class="list-group-item" href="${g.articuloLink(nombre: org.nombreURL, articulo:articulo.url)}">
               <div class="row">
                 <g:if test="${articulo.imagen}">
                   <div class="col-xs-4 imagen-item">
@@ -61,7 +61,7 @@
           <div class="col-sm-6 col-md-4">
             <articulo-card titulo="${articulo.titulo}" descripcion="${articulo.descripcion}"
                 fecha="${articulo.dateCreated.format('dd MMMM yy')}"
-                link='${g.createLink(url: "blog/${articulo.url ?: ''}")}'
+                link="${g.articuloLink(nombre: org.nombreURL, articulo: articulo.url)}"
                 imagen="${g.fileLink(file: articulo.imagen)}">
             </articulo-card>
           </div>
