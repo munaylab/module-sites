@@ -9,10 +9,12 @@ import org.munaylab.contenido.MenuCommand
 import org.munaylab.contenido.Landing
 import org.munaylab.contenido.LandingCommand
 import org.munaylab.osc.Organizacion
+import org.munaylab.osc.EstadoOrganizacion
 import org.munaylab.user.User
 import org.munaylab.plugins.Archivo
 
 import grails.gorm.transactions.Transactional
+import grails.gorm.transactions.NotTransactional
 
 @Transactional
 class ContenidoService {
@@ -21,14 +23,19 @@ class ContenidoService {
 
     @Transactional(readOnly = true)
     Articulo obtenerArticulo(Long articuloId, Organizacion org) {
-        if (!org) return null
+        if (!esUnaOrganizacionValida(org)) return null
         Articulo.findByIdAndOrganizacion(articuloId, org)
     }
 
     @Transactional(readOnly = true)
     List<Articulo> obtenerTodosLosArticulos(Organizacion org) {
-        if (!org) return null
+        if (!esUnaOrganizacionValida(org)) return null
         Articulo.findAllByOrganizacion(org)
+    }
+
+    @NotTransactional
+    private boolean esUnaOrganizacionValida(Organizacion org) {
+        return org && org.estado == EstadoOrganizacion.VERIFICADA
     }
 
     Articulo actualizarArticulo(ArticuloCommand command, Organizacion org) {
@@ -46,9 +53,9 @@ class ContenidoService {
         return articulo
     }
 
-    @Transactional(readOnly = true)
+    @NotTransactional
     private boolean esUnArticuloValidoParaEditar(ArticuloCommand command, Organizacion org) {
-        return command && command.validate() && org.id == command.orgId
+        return esUnaOrganizacionValida(org) && command && command.validate() && org.id == command.orgId
     }
 
     @Transactional(readOnly = true)
@@ -118,9 +125,9 @@ class ContenidoService {
         return menu
     }
 
-    @Transactional(readOnly = true)
+    @NotTransactional
     private boolean esUnMenuValidoParaEditar(MenuCommand command, Organizacion org) {
-        return command && command.validate() && org.id == command.orgId
+        return esUnaOrganizacionValida(org) && command && command.validate() && org.id == command.orgId
     }
 
     @Transactional(readOnly = true)
@@ -179,9 +186,9 @@ class ContenidoService {
         landing
     }
 
-    @Transactional(readOnly = true)
+    @NotTransactional
     private boolean esUnaLandingValidaParaEditar(LandingCommand command, Organizacion org) {
-        return command && command.validate() && org.id == command.orgId
+        return esUnaOrganizacionValida(org) && command && command.validate() && org.id == command.orgId
     }
 
     @Transactional(readOnly = true)
