@@ -28,7 +28,7 @@
       <div class="container planning">
 
         <div class="col-md-4 indice">
-          <div class="well pull-right affix">
+          <div class="well">
             <g:each in="${programas}" var="programa">
               <ul class="programas">
                 <li>

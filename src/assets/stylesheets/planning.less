@@ -21,9 +21,14 @@
     .well {
       width: inherit;
       padding: 20px 5px;
+      @media (min-width: @screen-md-min) {
+        position: fixed;
+        float: right!important;
+      }
     }
   }
   section {
     height: inherit;
+    padding: 13px 8px;
   }
 }
