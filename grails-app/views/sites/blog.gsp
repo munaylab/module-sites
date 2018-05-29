@@ -23,7 +23,7 @@
         <div class="list-group">
           <div class="list-group-item active">
             <h4 class="list-group-item-heading">
-              Ultimos Posts
+              <g:message code="label.lastPosts" default="Ultimos Posts"/>
             </h4>
           </div>
           <g:each in="${articulos}" var="articulo">

@@ -4,7 +4,7 @@
     <meta name="layout" content="site"/>
 
     <g:if test="${!planning}">
-      <title>Planificación - ${org.nombre}</title>
+      <title><g:message code="label.planning" default="Planificación"/> - ${org.nombre}</title>
       <g:set var="planning" value="${programas.first()}" />
     </g:if>
     <g:else>

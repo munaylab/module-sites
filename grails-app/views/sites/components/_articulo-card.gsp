@@ -13,7 +13,9 @@
     </div>
 
     <div class="card-action">
-      <a :href="link">Continuar leyendo...</a>
+      <a :href="link">
+        <g:message code="articulo.continuar" default="Continuar leyendo"/>...
+      </a>
     </div>
 
   </div>
