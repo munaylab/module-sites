@@ -5,14 +5,11 @@ import spock.lang.Specification
 
 class SitesTagLibSpec extends Specification implements TagLibUnitTest<SitesTagLib> {
 
-    def setup() {
+    void "articulo link"() {
+        when:
+        def link = tagLib.articuloLink(nombre: 'munaylab', articulo: 'articulo')
+        then:
+        link == 'http://localhost:8080/org/munaylab/blog/articulo'
     }
 
-    def cleanup() {
-    }
-
-    void "test something"() {
-        expect:"fix me"
-            true == false
-    }
 }
