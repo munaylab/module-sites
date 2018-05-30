@@ -48,6 +48,7 @@ class PlanificacionService {
         if (programa) {
             programa.nombre = command.nombre
             programa.descripcion = command.descripcion
+            programa.contenido = command.contenido
             programa.save()
         } else {
             programa = new Programa(command.properties)
@@ -93,6 +94,7 @@ class PlanificacionService {
         if (proyecto) {
             proyecto.nombre = command.nombre
             proyecto.descripcion = command.descripcion
+            proyecto.contenido = command.contenido
             proyecto.save()
         } else {
             Programa programa = Programa.get(command.programaId)
@@ -144,6 +146,7 @@ class PlanificacionService {
         if (actividad) {
             actividad.nombre = command.nombre
             actividad.descripcion = command.descripcion
+            actividad.contenido = command.contenido
             actividad.save()
         } else {
             Proyecto proyecto = Proyecto.get(command.proyectoId)
