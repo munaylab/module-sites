@@ -95,6 +95,9 @@ class PlanificacionService {
             proyecto.nombre = command.nombre
             proyecto.descripcion = command.descripcion
             proyecto.contenido = command.contenido
+            if (command.programaId != proyecto?.programa.id) {
+                proyecto.programa = getPrograma(command.programaId, org)
+            }
             proyecto.save()
         } else {
             Programa programa = Programa.get(command.programaId)
@@ -123,7 +126,6 @@ class PlanificacionService {
         programa.proyectos.clear()
     }
 
-
     Actividad getActividad(Long id, Organizacion org) {
         Actividad actividad = Actividad.get(id)
         if (!actividad) return null
@@ -147,9 +149,12 @@ class PlanificacionService {
             actividad.nombre = command.nombre
             actividad.descripcion = command.descripcion
             actividad.contenido = command.contenido
+            if (command.proyectoId != actividad?.proyecto?.id) {
+                actividad.proyecto = getProyecto(command.proyectoId, org)
+            }
             actividad.save()
         } else {
-            Proyecto proyecto = Proyecto.get(command.proyectoId)
+            Proyecto proyecto = getProyecto(command.proyectoId, org)
             if (proyecto) {
                 actividad = new Actividad(command.properties)
                 actividad.proyecto = proyecto
