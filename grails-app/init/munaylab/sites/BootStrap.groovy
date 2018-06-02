@@ -59,8 +59,9 @@ class BootStrap {
                 nombre      = 'MunayLab'
                 nombreURL   = 'munaylab'
                 tipo        = TipoOrganizacion.FUNDACION
-                estado      = EstadoOrganizacion.REGISTRADA
+                estado      = EstadoOrganizacion.VERIFICADA
                 objeto      = 'Brindar herramientas innovadoras a las organizaciones de la sociedad civil.'
+                descripcion      = 'Brindar herramientas innovadoras a las organizaciones de la sociedad civil.'
                 it
             }
             org.addToAdmins(new UserOrganizacion(user: user, tipo: admin)).save(failOnError: true)

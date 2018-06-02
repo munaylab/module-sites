@@ -4,6 +4,7 @@ import org.munaylab.contenido.Articulo
 import org.munaylab.contenido.Menu
 import org.munaylab.contenido.Landing
 import org.munaylab.osc.Organizacion
+import org.munaylab.osc.EstadoOrganizacion
 import org.munaylab.planificacion.Programa
 import org.munaylab.planificacion.Proyecto
 import org.munaylab.planificacion.Actividad
@@ -14,9 +15,13 @@ class SitesController {
     def organizacionService
     def planificacionService
 
+    private boolean esUnaOrganizacionValida(Organizacion org) {
+        return org && org.estado == EstadoOrganizacion.VERIFICADA
+    }
+
     def index() {
         Organizacion org = organizacionService.buscarPorNombre(params.nombreURL)
-        if (org) {
+        if (esUnaOrganizacionValida(org)) {
             Landing landing = contenidoService.getLanding(org)
             List<Menu> menu = contenidoService.getMenuDeOrganizacion(org)
             render view: 'index', model: [org: org, landing: landing, menu: menu]
@@ -27,7 +32,7 @@ class SitesController {
 
     def blog() {
         Organizacion org = organizacionService.buscarPorNombre(params.nombreOrganizacion)
-        if (org) {
+        if (esUnaOrganizacionValida(org)) {
             Landing landing = contenidoService.getLanding(org)
             List<Menu> menu = contenidoService.getMenuDeOrganizacion(org)
             List<Articulo> articulos = contenidoService.obtenerUltimosArticulos(org)
@@ -39,7 +44,7 @@ class SitesController {
 
     def articulo() {
         Organizacion org = organizacionService.buscarPorNombre(params.nombreOrganizacion)
-        if (org) {
+        if (esUnaOrganizacionValida(org)) {
             Articulo articulo = contenidoService.buscarArticulo(params.nombreArticulo, org)
             if (articulo) {
                 List<Menu> menu = contenidoService.getMenuDeOrganizacion(org)
@@ -52,7 +57,7 @@ class SitesController {
 
     def planning() {
         Organizacion org = organizacionService.buscarPorNombre(params.nombreOrganizacion)
-        if (org) {
+        if (esUnaOrganizacionValida(org)) {
             List<Menu> menu = contenidoService.getMenuDeOrganizacion(org)
             List<Programa> programas = planificacionService.getProgramas(org)
             if (programas.isEmpty()) {
@@ -67,7 +72,7 @@ class SitesController {
 
     def programa(Long id) {
         Organizacion org = organizacionService.buscarPorNombre(params.nombreOrganizacion)
-        if (org) {
+        if (esUnaOrganizacionValida(org)) {
             List<Menu> menu = contenidoService.getMenuDeOrganizacion(org)
             Programa programa = planificacionService.getPrograma(id, org)
             if (programa) {
@@ -83,7 +88,7 @@ class SitesController {
 
     def proyecto(Long id) {
         Organizacion org = organizacionService.buscarPorNombre(params.nombreOrganizacion)
-        if (org) {
+        if (esUnaOrganizacionValida(org)) {
             List<Menu> menu = contenidoService.getMenuDeOrganizacion(org)
             Proyecto proyecto = planificacionService.getProyecto(id, org)
             if (proyecto) {
@@ -99,7 +104,7 @@ class SitesController {
 
     def actividad(Long id) {
         Organizacion org = organizacionService.buscarPorNombre(params.nombreOrganizacion)
-        if (org) {
+        if (esUnaOrganizacionValida(org)) {
             List<Menu> menu = contenidoService.getMenuDeOrganizacion(org)
             Actividad actividad = planificacionService.getActividad(id, org)
             if (actividad) {
