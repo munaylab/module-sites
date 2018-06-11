@@ -10,7 +10,8 @@ interface UnitTestBase {
 
     static final DATOS_ORG_VERIFICADA = [nombre: 'Fundación MunayLab', tipo: TipoOrganizacion.FUNDACION,
         nombreURL: 'fundacion_munaylab', estado: EstadoOrganizacion.VERIFICADA,
-        objeto: 'brindar soluciones a las organizaciones sociales']
+        objeto: 'brindar soluciones a las organizaciones sociales',
+        descripcion: 'brindar soluciones a las organizaciones sociales']
 
     static final DATOS_ARTICULO = [titulo: 'Nosotros', contenido: 'nosotros contenido', url: 'nosotros',
         palabrasClaves: 'keywords', descripcion: 'descripcion', publicado: false]
