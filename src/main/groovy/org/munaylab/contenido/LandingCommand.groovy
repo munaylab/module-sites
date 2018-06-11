@@ -44,7 +44,7 @@ class MenuCommand implements Validateable {
         orgId nullable: true
         articuloId nullable: true, validator : { val, obj, errors ->
             if (val == null && obj.link == null)
-                errors.rejectValue('contenidoId', 'error.contenido.y.link.null')
+                errors.rejectValue('articuloId', 'error.contenido.y.link.null')
         }
         nombre nullable: false, blank: false
         link nullable: true, blank: false
