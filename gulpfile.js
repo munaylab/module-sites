@@ -28,10 +28,12 @@ const resources = {
     'node_modules/lodash/lodash.min.js',
     'node_modules/jquery/dist/*.min.js',
     'node_modules/jquery.easing/*.min.js',
+    'node_modules/leaflet/dist/leaflet.js',
     'node_modules/bootstrap/dist/js/*.min.js',
     'node_modules/scrollreveal/dist/*.min.js'
   ],
   stylesheets: [
+    'node_modules/leaflet/dist/leaflet.css',
     'node_modules/bootstrap/dist/css/bootstrap.min.css'
   ],
   fonts: [
