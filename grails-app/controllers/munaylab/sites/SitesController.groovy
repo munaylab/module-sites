@@ -23,8 +23,7 @@ class SitesController {
         Organizacion org = organizacionService.buscarPorNombre(params.nombreURL)
         if (esUnaOrganizacionValida(org)) {
             Landing landing = contenidoService.getLanding(org)
-            List<Menu> menu = contenidoService.getMenuDeOrganizacion(org)
-            render view: 'index', model: [org: org, landing: landing, menu: menu]
+            render view: 'index', model: [org: org, landing: landing]
         } else {
             render status: 404
         }
@@ -34,9 +33,8 @@ class SitesController {
         Organizacion org = organizacionService.buscarPorNombre(params.nombreOrganizacion)
         if (esUnaOrganizacionValida(org)) {
             Landing landing = contenidoService.getLanding(org)
-            List<Menu> menu = contenidoService.getMenuDeOrganizacion(org)
             List<Articulo> articulos = contenidoService.obtenerUltimosArticulos(org)
-            render view: 'blog', model: [org: org, menu: menu, landing: landing, articulos: articulos]
+            render view: 'blog', model: [org: org, landing: landing, articulos: articulos]
         } else {
             render status: 404
         }
@@ -47,8 +45,7 @@ class SitesController {
         if (esUnaOrganizacionValida(org)) {
             Articulo articulo = contenidoService.buscarArticulo(params.nombreArticulo, org)
             if (articulo) {
-                List<Menu> menu = contenidoService.getMenuDeOrganizacion(org)
-                render view: 'articulo', model: [org: org, menu: menu, articulo: articulo]
+                render view: 'articulo', model: [org: org, articulo: articulo]
                 return
             }
         }
@@ -58,64 +55,52 @@ class SitesController {
     def planning() {
         Organizacion org = organizacionService.buscarPorNombre(params.nombreOrganizacion)
         if (esUnaOrganizacionValida(org)) {
-            List<Menu> menu = contenidoService.getMenuDeOrganizacion(org)
             List<Programa> programas = planificacionService.getProgramas(org)
-            if (programas.isEmpty()) {
-                render status: 404
-            } else {
-                render view: 'planning', model: [org: org, menu: menu, programas: programas]
+            if (!programas.isEmpty()) {
+                render view: 'planning', model: [org: org, programas: programas]
+                return
             }
-        } else {
-            render status: 404
         }
+        render status: 404
     }
 
     def programa(Long id) {
         Organizacion org = organizacionService.buscarPorNombre(params.nombreOrganizacion)
         if (esUnaOrganizacionValida(org)) {
-            List<Menu> menu = contenidoService.getMenuDeOrganizacion(org)
             Programa programa = planificacionService.getPrograma(id, org)
             if (programa) {
                 List<Programa> programas = planificacionService.getProgramas(org)
-                render view: 'planning', model: [planning: programa, org: org, menu: menu, programas: programas]
-            } else {
-                render status: 404
+                render view: 'planning', model: [planning: programa, org: org, programas: programas]
+                return
             }
-        } else {
-            render status: 404
         }
+        render status: 404
     }
 
     def proyecto(Long id) {
         Organizacion org = organizacionService.buscarPorNombre(params.nombreOrganizacion)
         if (esUnaOrganizacionValida(org)) {
-            List<Menu> menu = contenidoService.getMenuDeOrganizacion(org)
             Proyecto proyecto = planificacionService.getProyecto(id, org)
             if (proyecto) {
                 List<Programa> programas = planificacionService.getProgramas(org)
-                render view: 'planning', model: [planning: proyecto, org: org, menu: menu, programas: programas]
-            } else {
-                render status: 404
+                render view: 'planning', model: [planning: proyecto, org: org, programas: programas]
+                return
             }
-        } else {
-            render status: 404
         }
+        render status: 404
     }
 
     def actividad(Long id) {
         Organizacion org = organizacionService.buscarPorNombre(params.nombreOrganizacion)
         if (esUnaOrganizacionValida(org)) {
-            List<Menu> menu = contenidoService.getMenuDeOrganizacion(org)
             Actividad actividad = planificacionService.getActividad(id, org)
             if (actividad) {
                 List<Programa> programas = planificacionService.getProgramas(org)
-                render view: 'planning', model: [planning: actividad, org: org, menu: menu, programas: programas]
-            } else {
-                render status: 404
+                render view: 'planning', model: [planning: actividad, org: org, programas: programas]
+                return
             }
-        } else {
-            render status: 404
         }
+        render status: 404
     }
 
 }
