@@ -23,7 +23,8 @@ class SitesController {
         Organizacion org = organizacionService.buscarPorNombre(params.nombreURL)
         if (esUnaOrganizacionValida(org)) {
             Landing landing = contenidoService.getLanding(org)
-            render view: 'index', model: [org: org, landing: landing]
+            List<Menu> menu = contenidoService.getMenuDeOrganizacion(org)
+            render view: 'index', model: [org: org, landing: landing, menu: menu]
         } else {
             render status: 404
         }
