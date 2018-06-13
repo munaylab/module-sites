@@ -54,6 +54,7 @@
         </g:if>
       </g:each>
 
+      <g:render template="/components/contacto" plugin="sites" />
       <facebook-comments link="${link}"></facebook-comments>
     </div>
 
