@@ -12,7 +12,7 @@ class SitesTagLib {
     def menu = { attrs, body ->
         if (attrs.org) {
             List<Menu> menu = contenidoService.getMenuDeOrganizacion(attrs.org)
-            String homeLink = g.createLink(controller: 'org', action: attrs.org.nombreURL)
+            String homeLink = g.createLink(controller: attrs.org.nombreURL)
             def model = [menu: menu, homeLink: homeLink, nombre: attrs.org.nombre]
             out << render(template: "/components/menubar", model: model)
         }
