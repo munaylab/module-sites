@@ -50,14 +50,12 @@ class SitesControllerSpec extends Specification
         params.nombreArticulo = 'how_to'
         1 * controller.organizacionService.buscarPorNombre(_) >> { new Organizacion(DATOS_ORG_VERIFICADA) }
         1 * controller.contenidoService.buscarArticulo(_,_) >> { new Articulo() }
-        1 * controller.contenidoService.getMenuDeOrganizacion(_) >> { [new Menu(), new Menu()] }
         when:
         controller.articulo()
         then:
         status == 200
         model.org != null
         model.articulo != null
-        model.menu.size() == 2
     }
     void "articulo no disponible"() {
         given:
@@ -84,7 +82,6 @@ class SitesControllerSpec extends Specification
         params.nombreOrganizacion = 'munaylab'
         1 * controller.organizacionService.buscarPorNombre(_) >> { new Organizacion(DATOS_ORG_VERIFICADA) }
         1 * controller.contenidoService.getLanding(_) >> { new Landing() }
-        1 * controller.contenidoService.getMenuDeOrganizacion(_) >> { [new Menu(), new Menu()] }
         1 * controller.contenidoService.obtenerUltimosArticulos(_) >> { [new Articulo(), new Articulo()] }
         when:
         controller.blog()
@@ -92,7 +89,6 @@ class SitesControllerSpec extends Specification
         status == 200
         model.org != null
         model.landing != null
-        model.menu.size() == 2
         model.articulos.size() == 2
     }
     void "blog no encontrado"() {
