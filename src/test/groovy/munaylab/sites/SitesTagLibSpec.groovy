@@ -9,7 +9,7 @@ class SitesTagLibSpec extends Specification implements TagLibUnitTest<SitesTagLi
         when:
         def link = tagLib.articuloLink(nombre: 'munaylab', articulo: 'articulo')
         then:
-        link == 'http://localhost:8080/org/munaylab/blog/articulo'
+        link == 'http://localhost:8080/munaylab/blog/articulo'
     }
 
 }

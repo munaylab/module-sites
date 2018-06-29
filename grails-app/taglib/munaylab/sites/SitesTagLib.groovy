@@ -19,7 +19,7 @@ class SitesTagLib {
     }
 
     def articuloLink = { attrs, body ->
-        String link = g.createLink(absolute: true, controller: 'org', action: attrs.nombre)
+        String link = g.createLink(absolute: true, controller: attrs.nombre)
         out << "$link/blog/$attrs.articulo"
     }
 
