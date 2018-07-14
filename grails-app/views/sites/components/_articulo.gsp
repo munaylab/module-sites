@@ -21,6 +21,16 @@
       </div>
     </div>
 
+    <div v-if="landing">
+      <ul class="objetivos">
+        <g:each in="${org.objetivos}" var="obj">
+        <li>
+          <img nombre="${obj.nombre}" src="/assets/${obj.nombreDeArchivo}" width="50" />
+        </li>
+        </g:each>
+      </ul>
+    </div>
+
   </section>
 </template>
 
@@ -65,3 +75,17 @@ Vue.component('articulo', {
   }
 });
 </script>
+
+<style>
+ul.objetivos {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  text-align: center;
+}
+ul.objetivos li {
+  display: inline-block;
+  font-size: 20px;
+  padding: 20px;
+}
+</style>

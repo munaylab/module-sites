@@ -6,6 +6,7 @@ import org.munaylab.contenido.Accion
 import org.munaylab.contenido.Articulo
 import org.munaylab.contenido.Menu
 import org.munaylab.contenido.Landing
+import org.munaylab.ods.Objetivo
 import org.munaylab.osc.Organizacion
 import org.munaylab.osc.EstadoOrganizacion
 import org.munaylab.osc.TipoOrganizacion
@@ -19,6 +20,9 @@ import org.munaylab.plugins.Archivo
 
 class BootStrap {
 
+    def objetivosService
+    def grailsApplication
+
     def init = { servletContext ->
         environments {
             development {
@@ -29,6 +33,8 @@ class BootStrap {
                 def articulos = []
                 15.times { articulos << "Articulo N$it" }
                 crearArticulos(org, user, articulos)
+                crearODS()
+                agregarObjetivosAOrganizacion(org)
             }
         }
     }
@@ -264,6 +270,19 @@ class BootStrap {
                 }
             )
         ).save(failOnError: true)
+    }
+
+    private void crearODS() {
+        grailsApplication.config.ods.each { objetivoConfig ->
+            objetivosService.guardarObjetivoDesdeConfiguracion(objetivoConfig)
+        }
+    }
+
+    private void agregarObjetivosAOrganizacion(Organizacion org) {
+        org.addToObjetivos(Objetivo.findByPosicion(1))
+        org.addToObjetivos(Objetivo.findByPosicion(2))
+        org.addToObjetivos(Objetivo.findByPosicion(3))
+        org.save(failOnError: true)
     }
 
     def destroy = { }
