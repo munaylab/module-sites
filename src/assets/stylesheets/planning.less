@@ -1,0 +1,34 @@
+@import 'var.less';
+
+.planning {
+  width: 100%;
+  margin-left: 0px;
+  margin-right: 5px;
+  padding-left: 5px;
+  padding-right: 1px;
+  .indice {
+    padding-top: 70px;
+    padding-left: 0px;
+    padding-right: 0px;
+    ul {
+      padding-top: 5px;
+      list-style-type: none;
+      -webkit-padding-start: 10px;
+      &.programas { font-size: 20px; }
+      &.proyectos { font-size: 18px; }
+      &.actividades { font-size: 16px; }
+    }
+    .well {
+      width: inherit;
+      padding: 20px 5px;
+      @media (min-width: @screen-md-min) {
+        position: fixed;
+        float: right!important;
+      }
+    }
+  }
+  section {
+    height: inherit;
+    padding: 13px 8px;
+  }
+}
