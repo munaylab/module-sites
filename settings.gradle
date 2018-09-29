@@ -2,4 +2,4 @@ include 'module-core'
 project(':module-core').projectDir = new File('../module-core')
 
 include 'plugin-fileupload'
-project(':plugin-fileupload').projectDir = new File('../fileupload-plugin')
+project(':plugin-fileupload').projectDir = new File('../plugin-fileupload')
