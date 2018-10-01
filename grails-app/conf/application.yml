@@ -5,7 +5,7 @@ facebookAppId: 774398902948913
 grails:
     profile: web-plugin
     codegen:
-        defaultPackage: munaylab.sites
+        defaultPackage: org.munaylab.sites
     spring:
         transactionManagement:
             proxies: false

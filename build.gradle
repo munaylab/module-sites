@@ -10,7 +10,7 @@ buildscript {
 }
 
 version "0.1"
-group "munaylab.sites"
+group "org.munaylab.sites"
 
 apply plugin:"eclipse"
 apply plugin:"idea"
@@ -65,19 +65,18 @@ bootRun {
     String springProfilesActive = 'spring.profiles.active'
     systemProperty springProfilesActive, System.getProperty(springProfilesActive)
 }
-// enable if you wish to package this plugin as a standalone application
+
 bootRepackage.enabled = false
 grailsPublish {
-    // TODO: Provide values here
-    user = 'user'
+    user = 'team@munaylab.org'
     key = 'key'
     githubSlug = 'foo/bar'
     license {
-        name = 'Apache-2.0'
+        name = 'GPL3'
     }
-    title = "My Plugin"
-    desc = "Full plugin description"
-    developers = [johndoe:"John Doe"]
+    title = "Sites Module"
+    desc = "Munaylab Sites Module"
+    developers = [team:"team@munaylab.org"]
 }
 
 assets {
